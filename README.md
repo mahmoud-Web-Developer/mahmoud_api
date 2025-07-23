@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # the_flow API
 
 ## Authentication
@@ -66,11 +65,10 @@ All endpoints accept and return JSON. Some endpoints may require JWT authenticat
    git add .
    git commit -m "first commit"
    git branch -M main
-   git remote add origin <your-repo-url>
+   git remote add origin https://github.com/mahmoud-Web-Developer/mahmoud_api.git
    git push -u origin main
    ```
 3. **Replace `<your-repo-url>` with your GitHub repository URL.**
 4. **Your project (including all folders) will be uploaded to GitHub.**
-=======
+
 # mahmoud_api
->>>>>>> c6fff74980fe17d51a4a856f68ab54510956c802
