@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # the_flow API
 
 ## Authentication
@@ -70,3 +71,6 @@ All endpoints accept and return JSON. Some endpoints may require JWT authenticat
    ```
 3. **Replace `<your-repo-url>` with your GitHub repository URL.**
 4. **Your project (including all folders) will be uploaded to GitHub.**
+=======
+# mahmoud_api
+>>>>>>> c6fff74980fe17d51a4a856f68ab54510956c802
