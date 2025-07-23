@@ -1,0 +1,37 @@
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'API is running' });
+});
+
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
+
+const servicesRoutes = require('./routes/services');
+const portfolioRoutes = require('./routes/portfolio');
+const newsRoutes = require('./routes/news');
+const contactRequestsRoutes = require('./routes/contactRequests');
+const meetingsRoutes = require('./routes/meetings');
+const briefsRoutes = require('./routes/briefs');
+const dashboardRoutes = require('./routes/dashboard');
+const requestsRoutes = require('./routes/requests');
+
+app.use('/services', servicesRoutes);
+app.use('/portfolio', portfolioRoutes);
+app.use('/news', newsRoutes);
+app.use('/contact-requests', contactRequestsRoutes);
+app.use('/meetings', meetingsRoutes);
+app.use('/briefs', briefsRoutes);
+app.use('/dashboard', dashboardRoutes);
+app.use('/requests', requestsRoutes);
+
+module.exports = app;
