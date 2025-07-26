@@ -1,0 +1,96 @@
+=======================================
+   تعليمات رفع التحديثات إلى GitHub
+=======================================
+
+الخطوات المطلوبة:
+
+1. افتح PowerShell في مجلد المشروع
+2. نفذ الأوامر التالية:
+
+=======================================
+   الأوامر المطلوبة:
+=======================================
+
+git init
+git add .
+git commit -m "feat: إضافة clients APIs وتحديث app.js"
+git remote add origin https://github.com/mahmoud-Web-Developer/mahmoud_api.git
+git push -u origin main
+
+=======================================
+   التحديثات المطلوبة رفعها:
+=======================================
+
+✅ إضافة clients routes إلى app.js
+✅ تحديث api.txt
+✅ إنشاء API_COMPARISON.txt
+✅ إنشاء update-railway.ps1
+✅ إنشاء push-to-github.ps1
+✅ إنشاء GITHUB_PUSH_INSTRUCTIONS.txt
+
+=======================================
+   الـ APIs المحدثة:
+=======================================
+
+Authentication APIs:
+✅ POST /auth/signup
+✅ POST /auth/login
+
+Content APIs:
+✅ GET /services
+✅ GET /portfolio
+✅ GET /news
+
+Request APIs:
+✅ POST /contact-requests
+✅ GET /meetings/slots
+✅ POST /meetings
+✅ POST /briefs
+
+Dashboard & Admin APIs:
+✅ GET /dashboard
+✅ POST /requests/contact
+✅ POST /requests/meeting
+✅ POST /requests/brief
+
+Clients Management APIs:
+✅ POST /clients
+✅ GET /clients
+✅ GET /clients/:id
+
+System APIs:
+✅ GET /health
+✅ GET /api
+
+=======================================
+   بعد الرفع:
+=======================================
+
+✅ Railway سيقوم بالنشر التلقائي
+✅ جميع الـ APIs ستكون متاحة
+✅ التطبيق محدث على الإنترنت
+
+=======================================
+   الـ Base URL:
+=======================================
+
+https://mahmoudapi-production.up.railway.app
+
+=======================================
+   اختبار الـ APIs:
+=======================================
+
+# اختبار clients APIs
+curl -X POST https://mahmoudapi-production.up.railway.app/clients \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890"
+  }'
+
+curl -X GET https://mahmoudapi-production.up.railway.app/clients
+
+curl -X GET https://mahmoudapi-production.up.railway.app/clients/1
+
+======================================= 
