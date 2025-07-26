@@ -1,0 +1,141 @@
+=======================================
+   دليل تنظيم المشروع
+=======================================
+
+## الهيكل الجديد للمشروع
+
+### 📁 المجلدات الرئيسية
+
+#### src/ - الكود المصدري
+- controllers/ - وحدات التحكم
+- routes/ - مسارات الـ API
+- middleware/ - الوسائط البرمجية
+- data/ - البيانات
+- utils/ - الأدوات المساعدة
+- models/ - النماذج
+
+#### public/ - الملفات العامة
+- index.html - موقع الاختبار
+
+#### docs/ - التوثيق
+- API_GUIDE.txt - دليل الـ APIs
+- APIS_LIST.txt - قائمة الـ APIs
+- README.txt - دليل المشروع
+- api.txt - قائمة الـ APIs
+- LICENSE - رخصة المشروع
+
+#### scripts/ - النصوص البرمجية
+- *.ps1 - PowerShell scripts
+- *.bat - Batch scripts
+
+#### deploy/ - ملفات النشر
+- railway.json - إعدادات Railway
+- vercel.json - إعدادات Vercel
+- render.yaml - إعدادات Render
+- app.json - إعدادات Heroku
+- Procfile - إعدادات Heroku
+- .dockerignore - إعدادات Docker
+
+#### config/ - ملفات التكوين
+- package.json - إعدادات المشروع
+- package-lock.json - قفل الإصدارات
+- env.example - متغيرات البيئة
+- .gitignore - تجاهل Git
+
+#### assets/ - الملفات الوسائطية
+- *.jpg, *.png - الصور
+
+#### backup/ - النسخ الاحتياطية
+- ملفات النسخ الاحتياطية
+
+## الملفات في المجلد الجذر
+
+### الملفات الأساسية
+- app.js - التطبيق الرئيسي
+- server.js - خادم التطبيق
+- README.md - دليل المشروع الجديد
+
+### ملفات التنظيم
+- organize-project-final.ps1 - script التنظيم
+- push-organized.ps1 - script رفع التغييرات
+- ORGANIZATION_GUIDE.txt - هذا الدليل
+
+## الخطوات لتنظيم المشروع
+
+### 1. تشغيل script التنظيم
+```powershell
+.\organize-project-final.ps1
+```
+
+### 2. رفع التغييرات
+```powershell
+.\push-organized.ps1
+```
+
+### 3. أو الأوامر اليدوية
+```bash
+git init
+git add .
+git commit -m "feat: تنظيم ملفات المشروع وإنشاء هيكل منظم"
+git remote add origin https://github.com/mahmoud-Web-Developer/mahmoud_api.git
+git push -u origin main
+```
+
+## فوائد التنظيم
+
+### ✅ سهولة الصيانة
+- فصل واضح بين الملفات
+- هيكل منطقي ومنظم
+- سهولة العثور على الملفات
+
+### ✅ سهولة التطوير
+- مجلدات مخصصة لكل نوع
+- فصل الكود عن التوثيق
+- إدارة أفضل للملفات
+
+### ✅ سهولة النشر
+- ملفات النشر منفصلة
+- إعدادات واضحة
+- سهولة التكوين
+
+### ✅ سهولة التوثيق
+- مجلد مخصص للتوثيق
+- ملفات منظمة
+- سهولة الوصول
+
+## الـ APIs المتاحة
+
+### Authentication APIs
+- POST /auth/signup
+- POST /auth/login
+
+### Content APIs
+- GET /services
+- GET /portfolio
+- GET /news
+
+### Request APIs
+- POST /contact-requests
+- GET /meetings/slots
+- POST /meetings
+- POST /briefs
+
+### Dashboard & Admin APIs
+- GET /dashboard
+- POST /requests/contact
+- POST /requests/meeting
+- POST /requests/brief
+
+### Clients Management APIs
+- POST /clients
+- GET /clients
+- GET /clients/:id
+
+### System APIs
+- GET /health
+- GET /api
+
+## الـ Base URL
+https://mahmoudapi-production.up.railway.app
+
+======================================= 
