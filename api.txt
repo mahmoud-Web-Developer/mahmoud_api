@@ -1,0 +1,21 @@
+# جميع روابط الـ API على الإنترنت (mahmoudapi-production.up.railway.app)
+
+POST   https://mahmoudapi-production.up.railway.app/auth/signup         - تسجيل مستخدم جديد
+POST   https://mahmoudapi-production.up.railway.app/auth/login          - تسجيل الدخول والحصول على JWT
+GET    https://mahmoudapi-production.up.railway.app/services            - جلب جميع الخدمات
+GET    https://mahmoudapi-production.up.railway.app/portfolio           - جلب جميع عناصر البورتفوليو
+GET    https://mahmoudapi-production.up.railway.app/news                - جلب آخر الأخبار
+POST   https://mahmoudapi-production.up.railway.app/contact-requests    - إرسال طلب تواصل
+GET    https://mahmoudapi-production.up.railway.app/meetings/slots      - جلب أوقات الاجتماعات المتاحة
+POST   https://mahmoudapi-production.up.railway.app/meetings            - حجز اجتماع
+POST   https://mahmoudapi-production.up.railway.app/briefs              - إرسال Brief جديد
+GET    https://mahmoudapi-production.up.railway.app/dashboard           - جلب بيانات لوحة التحكم
+POST   https://mahmoudapi-production.up.railway.app/requests/contact    - بدء طلب تواصل
+POST   https://mahmoudapi-production.up.railway.app/requests/meeting    - بدء طلب اجتماع
+POST   https://mahmoudapi-production.up.railway.app/requests/brief      - بدء طل Brief
+POST   https://mahmoudapi-production.up.railway.app/clients             - إضافة معلومات عميل جديد
+GET    https://mahmoudapi-production.up.railway.app/clients             - جلب جميع العملاء
+GET    https://mahmoudapi-production.up.railway.app/clients/:id         - جلب عميل محدد بواسطة ID
+
+# جميع المسارات تقبل وتعيد بيانات بصيغة JSON.
+# بعض المسارات تتطلب توكن JWT في الهيدر: Authorization: Bearer <token> 

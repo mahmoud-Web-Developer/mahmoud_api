@@ -1,0 +1,13 @@
+POST https://mahmoudapi-production.up.railway.app/auth/signup - تسجيل مستخدم جديد
+POST https://mahmoudapi-production.up.railway.app/auth/login - تسجيل الدخول والحصول على JWT
+GET https://mahmoudapi-production.up.railway.app/services - جلب جميع الخدمات
+GET https://mahmoudapi-production.up.railway.app/portfolio - جلب جميع عناصر البورتفوليو
+GET https://mahmoudapi-production.up.railway.app/news - جلب آخر الأخبار
+POST https://mahmoudapi-production.up.railway.app/contact-requests - إرسال طلب تواصل
+GET https://mahmoudapi-production.up.railway.app/meetings/slots - جلب أوقات الاجتماعات المتاحة
+POST https://mahmoudapi-production.up.railway.app/meetings - حجز اجتماع
+POST https://mahmoudapi-production.up.railway.app/briefs - إرسال Brief جديد
+GET https://mahmoudapi-production.up.railway.app/dashboard - جلب بيانات لوحة التحكم
+POST https://mahmoudapi-production.up.railway.app/requests/contact - بدء طلب تواصل
+POST https://mahmoudapi-production.up.railway.app/requests/meeting - بدء طلب اجتماع
+POST https://mahmoudapi-production.up.railway.app/requests/brief - بدء طلب Brief 
