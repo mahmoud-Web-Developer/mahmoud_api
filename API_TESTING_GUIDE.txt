@@ -1,0 +1,252 @@
+=======================================
+   دليل اختبار الـ APIs
+=======================================
+
+## 🧪 طرق اختبار الـ APIs
+
+### الطريقة الأولى (Script PowerShell):
+```powershell
+.\test-apis.ps1
+```
+
+### الطريقة الثانية (PowerShell مباشر):
+
+#### 1. فحص صحة النظام:
+```powershell
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/health" -Method GET
+```
+
+#### 2. جلب الخدمات:
+```powershell
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/services" -Method GET
+```
+
+#### 3. جلب البورتفوليو:
+```powershell
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/portfolio" -Method GET
+```
+
+#### 4. جلب الأخبار:
+```powershell
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/news" -Method GET
+```
+
+#### 5. تسجيل الدخول:
+```powershell
+$loginData = @{
+    username = "admin"
+    password = "admin123"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/auth/login" -Method POST -Body $loginData -ContentType "application/json"
+```
+
+#### 6. اختبار لوحة التحكم (مع Token):
+```powershell
+$token = "JWT_TOKEN_HERE"
+$headers = @{
+    "Authorization" = "Bearer $token"
+}
+
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/dashboard" -Method GET -Headers $headers
+```
+
+### الطريقة الثالثة (curl - إذا كان متاح):
+
+#### 1. فحص صحة النظام:
+```bash
+curl https://mahmoudapi-production.up.railway.app/health
+```
+
+#### 2. جلب الخدمات:
+```bash
+curl https://mahmoudapi-production.up.railway.app/services
+```
+
+#### 3. تسجيل الدخول:
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d "{\"username\": \"admin\", \"password\": \"admin123\"}"
+```
+
+### الطريقة الرابعة (موقع الاختبار التفاعلي):
+```
+https://mahmoudapi-production.up.railway.app
+```
+
+## 📋 قائمة الـ APIs للاختبار
+
+### APIs عامة (لا تحتاج مصادقة):
+
+#### 1. فحص صحة النظام
+- **URL**: `GET /health`
+- **الوصف**: فحص حالة النظام
+
+#### 2. جلب الخدمات
+- **URL**: `GET /services`
+- **الوصف**: جلب جميع الخدمات
+
+#### 3. جلب البورتفوليو
+- **URL**: `GET /portfolio`
+- **الوصف**: جلب عناصر البورتفوليو
+
+#### 4. جلب الأخبار
+- **URL**: `GET /news`
+- **الوصف**: جلب آخر الأخبار
+
+#### 5. تسجيل مستخدم جديد
+- **URL**: `POST /auth/signup`
+- **البيانات**:
+  ```json
+  {
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password123",
+    "role": "user"
+  }
+  ```
+
+#### 6. تسجيل الدخول
+- **URL**: `POST /auth/login`
+- **البيانات**:
+  ```json
+  {
+    "username": "admin",
+    "password": "admin123"
+  }
+  ```
+
+#### 7. إرسال طلب تواصل
+- **URL**: `POST /contact-requests`
+- **البيانات**:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "message": "Hello, I need help",
+    "subject": "Project Inquiry"
+  }
+  ```
+
+#### 8. جلب أوقات الاجتماعات
+- **URL**: `GET /meetings/slots`
+- **الوصف**: جلب الأوقات المتاحة
+
+#### 9. حجز اجتماع
+- **URL**: `POST /meetings`
+- **البيانات**:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "date": "2024-01-15",
+    "time": "10:00",
+    "duration": "1 hour",
+    "purpose": "Project discussion"
+  }
+  ```
+
+#### 10. إرسال Brief
+- **URL**: `POST /briefs`
+- **البيانات**:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "projectType": "Web Development",
+    "description": "E-commerce website",
+    "budget": "$5000",
+    "timeline": "2 months",
+    "requirements": "Modern design, responsive"
+  }
+  ```
+
+### APIs محمية (تحتاج JWT Token):
+
+#### 1. لوحة التحكم
+- **URL**: `GET /dashboard`
+- **Headers**: `Authorization: Bearer JWT_TOKEN`
+
+#### 2. جلب العملاء
+- **URL**: `GET /clients`
+- **Headers**: `Authorization: Bearer JWT_TOKEN`
+
+#### 3. إضافة عميل
+- **URL**: `POST /clients`
+- **Headers**: `Authorization: Bearer JWT_TOKEN`
+- **البيانات**:
+  ```json
+  {
+    "name": "Client Name",
+    "email": "client@example.com",
+    "phone": "+1234567890",
+    "company": "Company Name",
+    "notes": "Important client"
+  }
+  ```
+
+## 🔑 الحصول على JWT Token
+
+### 1. تسجيل الدخول:
+```powershell
+$loginData = @{
+    username = "admin"
+    password = "admin123"
+} | ConvertTo-Json
+
+$response = Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/auth/login" -Method POST -Body $loginData -ContentType "application/json"
+
+$token = $response.data.token
+Write-Host "Token: $token"
+```
+
+### 2. استخدام Token:
+```powershell
+$headers = @{
+    "Authorization" = "Bearer $token"
+}
+
+$dashboardResponse = Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/dashboard" -Method GET -Headers $headers
+```
+
+## 📊 نتائج الاختبار المتوقعة
+
+### ✅ اختبارات ناجحة:
+- فحص صحة النظام: `{"status": "OK", "message": "API is running"}`
+- جلب الخدمات: قائمة بالخدمات المتاحة
+- جلب البورتفوليو: قائمة بعناصر البورتفوليو
+- جلب الأخبار: قائمة بالأخبار
+- تسجيل الدخول: JWT Token
+- لوحة التحكم: إحصائيات النظام
+- جلب العملاء: قائمة بالعملاء
+
+### ❌ أخطاء محتملة:
+- **401 Unauthorized**: Token غير صحيح أو منتهي الصلاحية
+- **404 Not Found**: API غير موجود
+- **500 Internal Server Error**: خطأ في الخادم
+
+## 🎯 نصائح للاختبار
+
+### 1. ابدأ بالـ APIs العامة:
+- فحص صحة النظام
+- جلب الخدمات
+- جلب البورتفوليو
+
+### 2. اختبر المصادقة:
+- تسجيل الدخول
+- الحصول على Token
+
+### 3. اختبر الـ APIs المحمية:
+- لوحة التحكم
+- إدارة العملاء
+
+### 4. اختبر إرسال البيانات:
+- طلبات التواصل
+- حجز الاجتماعات
+- إرسال Briefs
+
+======================================= 

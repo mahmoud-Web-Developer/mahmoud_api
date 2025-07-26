@@ -1,0 +1,99 @@
+=======================================
+   مرجع سريع للـ APIs
+=======================================
+
+## 🌐 الـ Base URL
+https://mahmoudapi-production.up.railway.app
+
+## 📋 قائمة سريعة للـ APIs
+
+### 🔐 Authentication APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| POST | `/auth/signup` | تسجيل مستخدم جديد | ❌ |
+| POST | `/auth/login` | تسجيل الدخول | ❌ |
+
+### 📄 Content APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| GET | `/services` | جلب جميع الخدمات | ❌ |
+| GET | `/portfolio` | جلب البورتفوليو | ❌ |
+| GET | `/news` | جلب الأخبار | ❌ |
+
+### 📝 Request APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| POST | `/contact-requests` | إرسال طلب تواصل | ❌ |
+| GET | `/meetings/slots` | أوقات الاجتماعات المتاحة | ❌ |
+| POST | `/meetings` | حجز اجتماع | ❌ |
+| POST | `/briefs` | إرسال Brief | ❌ |
+
+### 🎛️ Dashboard & Admin APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| GET | `/dashboard` | بيانات لوحة التحكم | ✅ |
+| POST | `/requests/contact` | بدء طلب تواصل | ✅ |
+| POST | `/requests/meeting` | بدء طلب اجتماع | ✅ |
+| POST | `/requests/brief` | بدء طلب Brief | ✅ |
+
+### 👥 Clients Management APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| POST | `/clients` | إضافة عميل جديد | ✅ |
+| GET | `/clients` | جلب جميع العملاء | ✅ |
+| GET | `/clients/:id` | جلب عميل محدد | ✅ |
+
+### 🔧 System APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| GET | `/health` | فحص صحة النظام | ❌ |
+| GET | `/api` | معلومات الـ API | ❌ |
+
+## 📊 إحصائيات سريعة
+
+### إجمالي الـ APIs: 18 API
+- **APIs عامة**: 10 APIs (لا تحتاج مصادقة)
+- **APIs محمية**: 8 APIs (تحتاج JWT Token)
+
+### تصنيف الـ APIs:
+- 🔐 Authentication: 2 APIs
+- 📄 Content: 3 APIs
+- 📝 Request: 4 APIs
+- 🎛️ Dashboard: 4 APIs
+- 👥 Clients: 3 APIs
+- 🔧 System: 2 APIs
+
+## 🔑 المصادقة
+
+### JWT Token
+```
+Authorization: Bearer JWT_TOKEN
+```
+
+### الأدوار:
+- **user**: مستخدم عادي
+- **admin**: مدير النظام
+
+## 🧪 اختبار سريع
+
+### فحص صحة النظام:
+```bash
+curl https://mahmoudapi-production.up.railway.app/health
+```
+
+### جلب الخدمات:
+```bash
+curl https://mahmoudapi-production.up.railway.app/services
+```
+
+### تسجيل الدخول:
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}'
+```
+
+## 📱 موقع الاختبار التفاعلي
+https://mahmoudapi-production.up.railway.app
+
+======================================= 

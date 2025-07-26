@@ -1,0 +1,477 @@
+=======================================
+   جميع الـ APIs المتاحة - القائمة الشاملة
+=======================================
+
+## 🌐 الـ Base URL
+https://mahmoudapi-production.up.railway.app
+
+## 📋 تصنيف الـ APIs
+
+### 🔐 1. Authentication APIs (APIs المصادقة)
+
+#### POST /auth/signup
+- **الوصف**: تسجيل مستخدم جديد
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "username": "string",
+    "email": "string",
+    "password": "string",
+    "role": "user|admin"
+  }
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "message": "User registered successfully",
+    "data": {
+      "user": {
+        "id": "number",
+        "username": "string",
+        "email": "string",
+        "role": "string"
+      }
+    }
+  }
+  ```
+
+#### POST /auth/login
+- **الوصف**: تسجيل الدخول والحصول على JWT
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "username": "string",
+    "email": "string",
+    "password": "string"
+  }
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "message": "Login successful",
+    "data": {
+      "user": {
+        "id": "number",
+        "username": "string",
+        "email": "string",
+        "role": "string"
+      },
+      "token": "JWT_TOKEN"
+    }
+  }
+  ```
+
+### 📄 2. Content APIs (APIs المحتوى)
+
+#### GET /services
+- **الوصف**: جلب جميع الخدمات
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "id": "number",
+        "title": "string",
+        "description": "string",
+        "price": "string",
+        "category": "string"
+      }
+    ]
+  }
+  ```
+
+#### GET /portfolio
+- **الوصف**: جلب جميع عناصر البورتفوليو
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "id": "number",
+        "title": "string",
+        "description": "string",
+        "image": "string",
+        "category": "string",
+        "technologies": ["string"]
+      }
+    ]
+  }
+  ```
+
+#### GET /news
+- **الوصف**: جلب آخر الأخبار
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "id": "number",
+        "title": "string",
+        "content": "string",
+        "date": "string",
+        "author": "string"
+      }
+    ]
+  }
+  ```
+
+### 📝 3. Request APIs (APIs الطلبات)
+
+#### POST /contact-requests
+- **الوصف**: إرسال طلب تواصل
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "string",
+    "message": "string",
+    "subject": "string"
+  }
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "message": "Contact request sent successfully"
+  }
+  ```
+
+#### GET /meetings/slots
+- **الوصف**: جلب أوقات الاجتماعات المتاحة
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "id": "number",
+        "date": "string",
+        "time": "string",
+        "available": "boolean"
+      }
+    ]
+  }
+  ```
+
+#### POST /meetings
+- **الوصف**: حجز اجتماع
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "string",
+    "date": "string",
+    "time": "string",
+    "duration": "string",
+    "purpose": "string"
+  }
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "message": "Meeting booked successfully"
+  }
+  ```
+
+#### POST /briefs
+- **الوصف**: إرسال Brief جديد
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "string",
+    "projectType": "string",
+    "description": "string",
+    "budget": "string",
+    "timeline": "string",
+    "requirements": "string"
+  }
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "message": "Brief submitted successfully"
+  }
+  ```
+
+### 🎛️ 4. Dashboard & Admin APIs (APIs لوحة التحكم)
+
+#### GET /dashboard
+- **الوصف**: جلب بيانات لوحة التحكم (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "stats": {
+        "totalUsers": "number",
+        "totalRequests": "number",
+        "totalMeetings": "number",
+        "totalBriefs": "number"
+      },
+      "recentActivity": [
+        {
+          "type": "string",
+          "description": "string",
+          "date": "string"
+        }
+      ]
+    }
+  }
+  ```
+
+#### POST /requests/contact
+- **الوصف**: بدء طلب تواصل (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "string",
+    "message": "string"
+  }
+  ```
+
+#### POST /requests/meeting
+- **الوصف**: بدء طلب اجتماع (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "date": "string",
+    "time": "string",
+    "purpose": "string"
+  }
+  ```
+
+#### POST /requests/brief
+- **الوصف**: بدء طلب Brief (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "projectType": "string",
+    "description": "string",
+    "budget": "string"
+  }
+  ```
+
+### 👥 5. Clients Management APIs (APIs إدارة العملاء)
+
+#### POST /clients
+- **الوصف**: إضافة عميل جديد (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **البيانات المطلوبة**:
+  ```json
+  {
+    "name": "string",
+    "email": "string",
+    "phone": "string",
+    "company": "string",
+    "notes": "string"
+  }
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "message": "Client added successfully",
+    "data": {
+      "id": "number",
+      "name": "string",
+      "email": "string",
+      "phone": "string",
+      "company": "string",
+      "notes": "string"
+    }
+  }
+  ```
+
+#### GET /clients
+- **الوصف**: جلب جميع العملاء (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "id": "number",
+        "name": "string",
+        "email": "string",
+        "phone": "string",
+        "company": "string",
+        "notes": "string"
+      }
+    ]
+  }
+  ```
+
+#### GET /clients/:id
+- **الوصف**: جلب عميل محدد (يتطلب مصادقة)
+- **Headers المطلوبة**:
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+- **الاستجابة**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": "number",
+      "name": "string",
+      "email": "string",
+      "phone": "string",
+      "company": "string",
+      "notes": "string"
+    }
+  }
+  ```
+
+### 🔧 6. System APIs (APIs النظام)
+
+#### GET /health
+- **الوصف**: فحص صحة النظام
+- **الاستجابة**:
+  ```json
+  {
+    "status": "OK",
+    "message": "API is running",
+    "timestamp": "string"
+  }
+  ```
+
+#### GET /api
+- **الوصف**: معلومات الـ API
+- **الاستجابة**:
+  ```json
+  {
+    "name": "The Flow API",
+    "version": "1.0.0",
+    "description": "Comprehensive API with authentication and dashboard",
+    "endpoints": "number"
+  }
+  ```
+
+## 🔑 Authentication
+
+### JWT Token
+- **النوع**: Bearer Token
+- **المدة**: 24 ساعة
+- **الاستخدام**: في Header
+  ```
+  Authorization: Bearer JWT_TOKEN
+  ```
+
+### الأدوار المتاحة:
+- **user**: مستخدم عادي
+- **admin**: مدير النظام
+
+## 📊 إحصائيات الـ APIs
+
+### إجمالي الـ APIs: 18 API
+- Authentication APIs: 2
+- Content APIs: 3
+- Request APIs: 4
+- Dashboard & Admin APIs: 4
+- Clients Management APIs: 3
+- System APIs: 2
+
+### الـ APIs المحمية: 8 APIs
+- تتطلب JWT Token
+- للوصول إلى لوحة التحكم
+- لإدارة العملاء
+
+### الـ APIs العامة: 10 APIs
+- متاحة للجميع
+- لا تحتاج مصادقة
+- للخدمات العامة
+
+## 🧪 اختبار الـ APIs
+
+### موقع الاختبار:
+https://mahmoudapi-production.up.railway.app
+
+### أو استخدم:
+- Postman
+- Insomnia
+- curl
+- أي HTTP client
+
+## 📝 أمثلة الاستخدام
+
+### تسجيل مستخدم جديد:
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password123",
+    "role": "user"
+  }'
+```
+
+### تسجيل الدخول:
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "password": "password123"
+  }'
+```
+
+### جلب الخدمات:
+```bash
+curl -X GET https://mahmoudapi-production.up.railway.app/services
+```
+
+### إرسال طلب تواصل:
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/contact-requests \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "message": "Hello, I need help with my project",
+    "subject": "Project Inquiry"
+  }'
+```
+
+======================================= 
