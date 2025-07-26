@@ -1,0 +1,45 @@
+{
+  "name": "The Flow API",
+  "description": "نظام API شامل ومتطور مع موقع اختبار تفاعلي",
+  "repository": "https://github.com/your-username/the-flow-api",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": [
+    "node",
+    "express",
+    "api",
+    "jwt",
+    "authentication",
+    "admin",
+    "dashboard",
+    "arabic"
+  ],
+  "env": {
+    "NODE_ENV": {
+      "description": "Environment",
+      "value": "production"
+    },
+    "JWT_SECRET": {
+      "description": "JWT Secret Key",
+      "generator": "secret"
+    },
+    "JWT_EXPIRES_IN": {
+      "description": "JWT Expiration Time",
+      "value": "1h"
+    },
+    "JWT_REFRESH_EXPIRES_IN": {
+      "description": "JWT Refresh Expiration Time",
+      "value": "7d"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+} 

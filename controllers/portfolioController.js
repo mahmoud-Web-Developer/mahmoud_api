@@ -1,6 +1,16 @@
 const { portfolio } = require('../data/dummyData');
  
-// دالة جلب جميع عناصر البورتفوليو
 exports.getPortfolio = (req, res) => {
-  res.json(portfolio);
+  try {
+    res.json({
+      success: true,
+      data: portfolio
+    });
+  } catch (error) {
+    console.error('Get portfolio error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'حدث خطأ في جلب البورتفوليو'
+    });
+  }
 }; 

@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/auth/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/dashboard/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/services",
+      "dest": "server.js"
+    },
+    {
+      "src": "/portfolio",
+      "dest": "server.js"
+    },
+    {
+      "src": "/news",
+      "dest": "server.js"
+    },
+    {
+      "src": "/contact-requests",
+      "dest": "server.js"
+    },
+    {
+      "src": "/meetings",
+      "dest": "server.js"
+    },
+    {
+      "src": "/briefs",
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+} 

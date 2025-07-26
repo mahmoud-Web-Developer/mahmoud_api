@@ -19,6 +19,18 @@ const news = [
 const contactRequests = [];
 const meetings = [];
 const briefs = [];
+const users = [
+  {
+    id: 1,
+    username: 'admin',
+    email: 'admin@theflow.com',
+    role: 'admin',
+    isActive: true,
+    createdAt: new Date('2024-01-01'),
+    lastLogin: new Date()
+  }
+];
+
 const dashboard = {
   workStatus: 'In Progress',
   reports: ['Report 1', 'Report 2'],
@@ -33,6 +45,7 @@ module.exports = {
   contactRequests,
   meetings,
   briefs,
+  users,
   dashboard,
   requests
 };
