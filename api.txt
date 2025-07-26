@@ -1,21 +1,81 @@
 # جميع روابط الـ API على الإنترنت (mahmoudapi-production.up.railway.app)
 
+=======================================
+   Authentication APIs
+=======================================
 POST   https://mahmoudapi-production.up.railway.app/auth/signup         - تسجيل مستخدم جديد
 POST   https://mahmoudapi-production.up.railway.app/auth/login          - تسجيل الدخول والحصول على JWT
+
+=======================================
+   Content APIs
+=======================================
 GET    https://mahmoudapi-production.up.railway.app/services            - جلب جميع الخدمات
 GET    https://mahmoudapi-production.up.railway.app/portfolio           - جلب جميع عناصر البورتفوليو
 GET    https://mahmoudapi-production.up.railway.app/news                - جلب آخر الأخبار
+
+=======================================
+   Request APIs
+=======================================
 POST   https://mahmoudapi-production.up.railway.app/contact-requests    - إرسال طلب تواصل
 GET    https://mahmoudapi-production.up.railway.app/meetings/slots      - جلب أوقات الاجتماعات المتاحة
 POST   https://mahmoudapi-production.up.railway.app/meetings            - حجز اجتماع
 POST   https://mahmoudapi-production.up.railway.app/briefs              - إرسال Brief جديد
+
+=======================================
+   Dashboard & Admin APIs
+=======================================
 GET    https://mahmoudapi-production.up.railway.app/dashboard           - جلب بيانات لوحة التحكم
 POST   https://mahmoudapi-production.up.railway.app/requests/contact    - بدء طلب تواصل
 POST   https://mahmoudapi-production.up.railway.app/requests/meeting    - بدء طلب اجتماع
-POST   https://mahmoudapi-production.up.railway.app/requests/brief      - بدء طل Brief
+POST   https://mahmoudapi-production.up.railway.app/requests/brief      - بدء طلب Brief
+
+=======================================
+   Clients Management APIs
+=======================================
 POST   https://mahmoudapi-production.up.railway.app/clients             - إضافة معلومات عميل جديد
 GET    https://mahmoudapi-production.up.railway.app/clients             - جلب جميع العملاء
 GET    https://mahmoudapi-production.up.railway.app/clients/:id         - جلب عميل محدد بواسطة ID
+
+=======================================
+   System APIs
+=======================================
+GET    https://mahmoudapi-production.up.railway.app/health              - فحص صحة النظام
+GET    https://mahmoudapi-production.up.railway.app/api                 - حالة الـ API
+
+=======================================
+   أمثلة الاستخدام
+=======================================
+
+# تسجيل دخول
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@example.com",
+    "password": "TestPass123"
+  }'
+
+# جلب الخدمات
+curl -X GET https://mahmoudapi-production.up.railway.app/services
+
+# إرسال طلب تواصل
+curl -X POST https://mahmoudapi-production.up.railway.app/contact-requests \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "message": "I need help"
+  }'
+
+# إضافة عميل جديد
+curl -X POST https://mahmoudapi-production.up.railway.app/clients \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890"
+  }'
+
+=======================================
 
 # جميع المسارات تقبل وتعيد بيانات بصيغة JSON.
 # بعض المسارات تتطلب توكن JWT في الهيدر: Authorization: Bearer <token> 

@@ -1,0 +1,432 @@
+=======================================
+   دليل الـ APIs - The Flow API
+=======================================
+
+الـ Base URL: http://localhost:5000
+
+=======================================
+   1. Authentication APIs
+=======================================
+
+POST /auth/signup
+- الوصف: تسجيل مستخدم جديد
+- البيانات المطلوبة:
+  {
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "TestPass123",
+    "role": "user"
+  }
+- الاستجابة:
+  {
+    "success": true,
+    "message": "User registered successfully",
+    "data": {
+      "user": { ... },
+      "token": "jwt_token_here"
+    }
+  }
+
+POST /auth/login
+- الوصف: تسجيل دخول المستخدم
+- البيانات المطلوبة:
+  {
+    "email": "test@example.com",
+    "password": "TestPass123"
+  }
+- الاستجابة:
+  {
+    "success": true,
+    "message": "Login successful",
+    "data": {
+      "user": { ... },
+      "token": "jwt_token_here"
+    }
+  }
+
+POST /auth/refresh-token
+- الوصف: تجديد الـ token
+- البيانات المطلوبة:
+  {
+    "refreshToken": "refresh_token_here"
+  }
+
+POST /auth/logout
+- الوصف: تسجيل خروج المستخدم
+- يتطلب: Authorization header
+- الاستجابة:
+  {
+    "success": true,
+    "message": "Logout successful"
+  }
+
+GET /auth/profile
+- الوصف: الحصول على معلومات المستخدم
+- يتطلب: Authorization header
+- الاستجابة:
+  {
+    "success": true,
+    "data": {
+      "user": { ... }
+    }
+  }
+
+=======================================
+   2. Services APIs
+=======================================
+
+GET /services
+- الوصف: الحصول على جميع الخدمات
+- الاستجابة:
+  {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "title": "Web Development",
+        "description": "Professional web development services",
+        "price": 1000,
+        "category": "web"
+      }
+    ]
+  }
+
+=======================================
+   3. Portfolio APIs
+=======================================
+
+GET /portfolio
+- الوصف: الحصول على جميع مشاريع البورتفوليو
+- الاستجابة:
+  {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "title": "E-commerce Website",
+        "description": "Modern e-commerce platform",
+        "imageUrl": "https://example.com/image.jpg",
+        "technologies": ["React", "Node.js", "MongoDB"],
+        "projectUrl": "https://project.com"
+      }
+    ]
+  }
+
+=======================================
+   4. News APIs
+=======================================
+
+GET /news
+- الوصف: الحصول على جميع الأخبار
+- الاستجابة:
+  {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "title": "Latest Technology Trends",
+        "content": "Article content here...",
+        "author": "John Doe",
+        "category": "technology",
+        "createdAt": "2024-01-01T00:00:00.000Z"
+      }
+    ]
+  }
+
+=======================================
+   5. Contact Requests APIs
+=======================================
+
+POST /contact-requests
+- الوصف: إرسال طلب اتصال
+- البيانات المطلوبة:
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "message": "I need help with my project",
+    "service": "web"
+  }
+- الاستجابة:
+  {
+    "success": true,
+    "message": "Contact request sent successfully"
+  }
+
+=======================================
+   6. Meetings APIs
+=======================================
+
+POST /meetings
+- الوصف: طلب اجتماع
+- البيانات المطلوبة:
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890",
+    "date": "2024-01-15T10:00:00.000Z",
+    "duration": 60,
+    "purpose": "Discuss project requirements"
+  }
+- الاستجابة:
+  {
+    "success": true,
+    "message": "Meeting request sent successfully"
+  }
+
+=======================================
+   7. Briefs APIs
+=======================================
+
+POST /briefs
+- الوصف: إرسال مذكرة مشروع
+- البيانات المطلوبة:
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "projectType": "web",
+    "budget": 5000,
+    "description": "Project description here"
+  }
+- الاستجابة:
+  {
+    "success": true,
+    "message": "Brief sent successfully"
+  }
+
+=======================================
+   8. Dashboard APIs
+=======================================
+
+GET /dashboard
+- الوصف: الحصول على معلومات لوحة التحكم
+- يتطلب: Authorization header
+- الاستجابة:
+  {
+    "success": true,
+    "data": {
+      "stats": {
+        "totalUsers": 100,
+        "totalServices": 10,
+        "totalRequests": 50
+      }
+    }
+  }
+
+=======================================
+   9. Admin APIs
+=======================================
+
+جميع الـ admin APIs تتطلب authentication و admin role
+
+===== إدارة المستخدمين =====
+
+GET /admin/users
+- الوصف: الحصول على جميع المستخدمين
+- الاستجابة:
+  {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@example.com",
+        "role": "admin",
+        "createdAt": "2024-01-01T00:00:00.000Z"
+      }
+    ]
+  }
+
+GET /admin/users/:id
+- الوصف: الحصول على مستخدم محدد
+- الاستجابة:
+  {
+    "success": true,
+    "data": {
+      "user": { ... }
+    }
+  }
+
+POST /admin/users
+- الوصف: إنشاء مستخدم جديد
+- البيانات المطلوبة:
+  {
+    "username": "newuser",
+    "email": "newuser@example.com",
+    "password": "Password123",
+    "role": "user"
+  }
+
+PUT /admin/users/:id
+- الوصف: تحديث مستخدم
+- البيانات المطلوبة:
+  {
+    "username": "updateduser",
+    "email": "updated@example.com",
+    "role": "admin"
+  }
+
+DELETE /admin/users/:id
+- الوصف: حذف مستخدم
+
+===== إدارة الطلبات =====
+
+GET /admin/contact-requests
+- الوصف: الحصول على جميع طلبات الاتصال
+- الاستجابة:
+  {
+    "success": true,
+    "data": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "message": "Help needed",
+        "status": "pending",
+        "createdAt": "2024-01-01T00:00:00.000Z"
+      }
+    ]
+  }
+
+PUT /admin/contact-requests/:id/status
+- الوصف: تحديث حالة طلب الاتصال
+- البيانات المطلوبة:
+  {
+    "status": "completed"
+  }
+
+===== إدارة المحتوى =====
+
+GET /admin/services
+- الوصف: الحصول على جميع الخدمات (للإدارة)
+
+POST /admin/services
+- الوصف: إنشاء خدمة جديدة
+- البيانات المطلوبة:
+  {
+    "title": "New Service",
+    "description": "Service description",
+    "price": 1000,
+    "category": "web"
+  }
+
+PUT /admin/services/:id
+- الوصف: تحديث خدمة
+- البيانات المطلوبة:
+  {
+    "title": "Updated Service",
+    "description": "Updated description",
+    "price": 1500
+  }
+
+DELETE /admin/services/:id
+- الوصف: حذف خدمة
+
+===== إحصائيات النظام =====
+
+GET /admin/system-stats
+- الوصف: الحصول على إحصائيات النظام
+- الاستجابة:
+  {
+    "success": true,
+    "data": {
+      "totalUsers": 100,
+      "totalServices": 10,
+      "totalRequests": 50,
+      "totalMeetings": 25,
+      "totalBriefs": 15,
+      "systemUptime": "2 days",
+      "lastBackup": "2024-01-01T00:00:00.000Z"
+    }
+  }
+
+=======================================
+   10. System APIs
+=======================================
+
+GET /health
+- الوصف: فحص صحة النظام
+- الاستجابة:
+  {
+    "status": "OK",
+    "timestamp": "2024-01-01T00:00:00.000Z",
+    "environment": "development",
+    "uptime": 12345.67
+  }
+
+GET /api
+- الوصف: حالة الـ API
+- الاستجابة:
+  {
+    "message": "API is running",
+    "version": "1.0.0",
+    "environment": "development"
+  }
+
+=======================================
+   Headers المطلوبة
+=======================================
+
+لجميع الـ APIs المحمية، أضف:
+Authorization: Bearer YOUR_JWT_TOKEN
+
+مثال:
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+=======================================
+   Status Codes
+=======================================
+
+200 - OK: الطلب نجح
+201 - Created: تم إنشاء المورد بنجاح
+400 - Bad Request: بيانات غير صحيحة
+401 - Unauthorized: غير مصرح
+403 - Forbidden: محظور
+404 - Not Found: المورد غير موجود
+500 - Internal Server Error: خطأ في الخادم
+
+=======================================
+   أمثلة الاستخدام
+=======================================
+
+1. تسجيل مستخدم جديد:
+curl -X POST http://localhost:5000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "TestPass123"
+  }'
+
+2. تسجيل دخول:
+curl -X POST http://localhost:5000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@example.com",
+    "password": "TestPass123"
+  }'
+
+3. الحصول على الخدمات:
+curl -X GET http://localhost:5000/services
+
+4. إرسال طلب اتصال:
+curl -X POST http://localhost:5000/contact-requests \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "message": "I need help"
+  }'
+
+=======================================
+   ملاحظات مهمة
+=======================================
+
+✅ جميع الـ APIs تدعم CORS
+✅ جميع الـ APIs تعيد JSON
+✅ جميع الـ APIs تحتوي على رسائل خطأ واضحة
+✅ جميع الـ APIs تدعم pagination (حيث ينطبق)
+✅ جميع الـ APIs تحتوي على validation
+✅ جميع الـ APIs تدعم search و filtering
+
+======================================= 

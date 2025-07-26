@@ -5,26 +5,56 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// Configuration
+const PORT = process.env.PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Serve static files from public folder
+// Middleware setup
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:5000'],
+  credentials: true
+}));
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Static files serving
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    environment: NODE_ENV,
+    uptime: process.uptime()
+  });
+});
+
+// API status route
+app.get('/api', (req, res) => {
+  res.json({
+    message: 'API is running',
+    version: '1.0.0',
+    environment: NODE_ENV
+  });
+});
 
 // Root route - serve the testing site
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// API route
-app.get('/api', (req, res) => {
-  res.json({ message: 'API is running' });
-});
-
+// Import and use routes
 const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
-
 const servicesRoutes = require('./routes/services');
 const portfolioRoutes = require('./routes/portfolio');
 const newsRoutes = require('./routes/news');
@@ -35,14 +65,47 @@ const dashboardRoutes = require('./routes/dashboard');
 const requestsRoutes = require('./routes/requests');
 const adminRoutes = require('./routes/admin');
 
-app.use('/services', servicesRoutes);
-app.use('/portfolio', portfolioRoutes);
-app.use('/news', newsRoutes);
-app.use('/contact-requests', contactRequestsRoutes);
-app.use('/meetings', meetingsRoutes);
-app.use('/briefs', briefsRoutes);
-app.use('/dashboard', dashboardRoutes);
-app.use('/requests', requestsRoutes);
-app.use('/admin', adminRoutes);
+// API routes
+const apiRoutes = [
+  { path: '/auth', router: authRoutes },
+  { path: '/services', router: servicesRoutes },
+  { path: '/portfolio', router: portfolioRoutes },
+  { path: '/news', router: newsRoutes },
+  { path: '/contact-requests', router: contactRequestsRoutes },
+  { path: '/meetings', router: meetingsRoutes },
+  { path: '/briefs', router: briefsRoutes },
+  { path: '/dashboard', router: dashboardRoutes },
+  { path: '/requests', router: requestsRoutes },
+  { path: '/admin', router: adminRoutes }
+];
+
+// Register all API routes
+apiRoutes.forEach(({ path, router }) => {
+  app.use(path, router);
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
+    path: req.originalUrl,
+    method: req.method
+  });
+});
+
+// Global error handler
+app.use((error, req, res, next) => {
+  console.error('Error:', error);
+  
+  const statusCode = error.statusCode || 500;
+  const message = error.message || 'Internal Server Error';
+  
+  res.status(statusCode).json({
+    success: false,
+    message,
+    ...(NODE_ENV === 'development' && { stack: error.stack })
+  });
+});
 
 module.exports = app;
