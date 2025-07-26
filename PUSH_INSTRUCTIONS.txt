@@ -1,0 +1,80 @@
+=======================================
+   تعليمات رفع التغييرات
+=======================================
+
+التغييرات المطلوبة رفعها:
+✅ إزالة جميع البيانات الوهمية
+✅ تحديث dummyData.js
+✅ تحسين authController.js
+✅ تحسين صفحة الاختبار
+✅ إضافة clients routes
+
+=======================================
+   الأوامر المطلوبة:
+=======================================
+
+git init
+git add .
+git commit -m "feat: إزالة البيانات الوهمية وتحسين الـ APIs"
+git remote add origin https://github.com/mahmoud-Web-Developer/mahmoud_api.git
+git push -u origin main
+
+=======================================
+   الملفات المحدثة:
+=======================================
+
+✅ mahmoud_api/data/dummyData.js - إزالة البيانات الوهمية
+✅ mahmoud_api/controllers/authController.js - تحسين الـ authentication
+✅ mahmoud_api/app.js - إضافة clients routes
+✅ public/index.html - تحسين صفحة الاختبار
+✅ api.txt - تحديث قائمة الـ APIs
+
+=======================================
+   الـ APIs المتاحة:
+=======================================
+
+Authentication APIs:
+✅ POST /auth/signup
+✅ POST /auth/login
+
+Content APIs:
+✅ GET /services
+✅ GET /portfolio
+✅ GET /news
+
+Request APIs:
+✅ POST /contact-requests
+✅ GET /meetings/slots
+✅ POST /meetings
+✅ POST /briefs
+
+Dashboard & Admin APIs:
+✅ GET /dashboard
+✅ POST /requests/contact
+✅ POST /requests/meeting
+✅ POST /requests/brief
+
+Clients Management APIs:
+✅ POST /clients
+✅ GET /clients
+✅ GET /clients/:id
+
+System APIs:
+✅ GET /health
+✅ GET /api
+
+=======================================
+   بعد الرفع:
+=======================================
+
+✅ Railway سيقوم بالنشر التلقائي
+✅ جميع الـ APIs ستكون متاحة
+✅ التطبيق جاهز للاستخدام
+
+=======================================
+   الـ Base URL:
+=======================================
+
+https://mahmoudapi-production.up.railway.app
+
+======================================= 
