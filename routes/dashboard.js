@@ -1,24 +1,37 @@
+/**
+ * Dashboard Routes
+ * مسارات لوحة التحكم
+ */
+
 const express = require('express');
 const router = express.Router();
 const dashboardController = require('../controllers/dashboardController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// جميع routes تتطلب authentication
-router.use(authMiddleware);
+// ===== إحصائيات لوحة التحكم =====
+router.get('/stats', authMiddleware, dashboardController.getDashboardStats);
 
-// جلب بيانات لوحة التحكم الرئيسية
-router.get('/', dashboardController.getDashboard);
+// ===== المشاريع الحالية =====
+router.get('/projects', authMiddleware, dashboardController.getCurrentProjects);
+router.post('/projects', authMiddleware, dashboardController.createProject);
+router.put('/projects/:id', authMiddleware, dashboardController.updateProject);
+router.delete('/projects/:id', authMiddleware, dashboardController.deleteProject);
 
-// جلب الإحصائيات
-router.get('/stats', dashboardController.getStats);
+// ===== إدارة المستخدمين =====
+router.get('/users', authMiddleware, dashboardController.getAllUsers);
+router.post('/users', authMiddleware, dashboardController.createUser);
+router.put('/users/:id', authMiddleware, dashboardController.updateUser);
+router.delete('/users/:id', authMiddleware, dashboardController.deleteUser);
 
-// جلب النشاطات الأخيرة
-router.get('/recent-activity', dashboardController.getRecentActivity);
+// ===== الطلبات الجديدة =====
+router.get('/requests', authMiddleware, dashboardController.getAllRequests);
+router.post('/requests', dashboardController.createRequest); // عام - لا يحتاج auth
 
-// جلب التقارير
-router.get('/reports', dashboardController.getReports);
+// ===== النشاطات الأخيرة =====
+router.get('/activity', authMiddleware, dashboardController.getRecentActivity);
 
-// تحديث إعدادات لوحة التحكم
-router.put('/settings', dashboardController.updateDashboardSettings);
+// ===== إعدادات لوحة التحكم =====
+router.get('/settings', authMiddleware, dashboardController.getDashboardSettings);
+router.put('/settings', authMiddleware, dashboardController.updateDashboardSettings);
 
 module.exports = router; 

@@ -64,6 +64,13 @@ const briefsRoutes = require('./routes/briefs');
 const dashboardRoutes = require('./routes/dashboard');
 const requestsRoutes = require('./routes/requests');
 const adminRoutes = require('./routes/admin');
+const clientsRoutes = require('./routes/clients');
+const contentRoutes = require('./routes/content');
+const contentManagementRoutes = require('./routes/contentManagement');
+const requestsManagementRoutes = require('./routes/requestsManagement');
+const notificationsRoutes = require('./routes/notifications');
+const advancedRequestsRoutes = require('./routes/advancedRequests');
+const advancedNotificationsRoutes = require('./routes/advancedNotifications');
 
 // API routes
 const apiRoutes = [
@@ -76,7 +83,14 @@ const apiRoutes = [
   { path: '/briefs', router: briefsRoutes },
   { path: '/dashboard', router: dashboardRoutes },
   { path: '/requests', router: requestsRoutes },
-  { path: '/admin', router: adminRoutes }
+  { path: '/admin', router: adminRoutes },
+  { path: '/clients', router: clientsRoutes },
+  { path: '/content', router: contentRoutes },
+  { path: '/content-management', router: contentManagementRoutes },
+  { path: '/requests-management', router: requestsManagementRoutes },
+  { path: '/notifications', router: notificationsRoutes },
+  { path: '/advanced-requests', router: advancedRequestsRoutes },
+  { path: '/advanced-notifications', router: advancedNotificationsRoutes }
 ];
 
 // Register all API routes

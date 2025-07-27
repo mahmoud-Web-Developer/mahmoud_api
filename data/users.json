@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "$2b$12$oY1rbf245r5Ls0o6VsfzUu8ryuK7zktkxqyPmecR5dtxD6icz9/L.",
+    "email": "admin@theflow.com",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "lastLogin": null,
+    "isActive": true,
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "username": "testuser",
+    "password": "$2b$12$XGnhEsHsvxSREqGnhHXvn.hjm8nepq3xSPbhwL2BJvUtoTxx.WCWC",
+    "email": "test@example.com",
+    "role": "user",
+    "createdAt": "2025-07-27T11:14:00.197Z",
+    "lastLogin": null,
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "username": "anotheruser",
+    "password": "$2b$12$7JDIjt6gZUeZK2Ek7q0IWuA9YXlCTQS9UMLHWsPHcelKBsmhW5./G",
+    "email": "another@example.com",
+    "role": "user",
+    "createdAt": "2025-07-27T11:14:00.849Z",
+    "lastLogin": null,
+    "isActive": true
+  },
+  {
+    "id": 4,
+    "username": "amr33442",
+    "password": "$2b$12$iqW2G467VHYKfcJOXV/AT.qtxK1IQTmwwKJSHoodOUFngS7rK8u2S",
+    "email": "amrxample33@email.com",
+    "role": "user",
+    "createdAt": "2025-07-27T11:19:42.247Z",
+    "lastLogin": null,
+    "isActive": true
+  },
+  {
+    "id": 5,
+    "username": "testuser123",
+    "password": "$2b$12$s.a5jr/m9ph20ceEAiccKebcf3OYopER4HL6dQiFgeSB88XPB2fyu",
+    "email": "testuser123@example.com",
+    "role": "user",
+    "createdAt": "2025-07-27T11:48:28.074Z",
+    "lastLogin": null,
+    "isActive": true
+  }
+]

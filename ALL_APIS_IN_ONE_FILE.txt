@@ -2,15 +2,15 @@
    ALL APIs IN ONE FILE - القائمة الشاملة
 =======================================
 
-## 🌐 الـ Base URL
+##  الـ Base URL
 https://mahmoudapi-production.up.railway.app
 
-## 📊 إحصائيات الـ APIs
+##  إحصائيات الـ APIs
 - إجمالي الـ APIs: 18 API
 - APIs عامة: 11 APIs (لا تحتاج مصادقة)
 - APIs محمية: 7 APIs (تحتاج JWT Token)
 
-## 🔐 Authentication APIs
+##  Authentication APIs
 
 ### 1. تسجيل مستخدم جديد
 ```
@@ -133,7 +133,7 @@ GET https://mahmoudapi-production.up.railway.app/news
 }
 ```
 
-## 📝 Request APIs
+##  Request APIs
 
 ### 6. إرسال طلب تواصل
 ```
@@ -240,7 +240,7 @@ POST https://mahmoudapi-production.up.railway.app/briefs
 }
 ```
 
-## 🎛️ Dashboard & Admin APIs
+##  Dashboard & Admin APIs
 
 ### 10. جلب بيانات لوحة التحكم
 ```
@@ -362,7 +362,7 @@ Authorization: Bearer JWT_TOKEN
 }
 ```
 
-## 👥 Clients Management APIs
+##  Clients Management APIs
 
 ### 14. إضافة عميل جديد
 ```
@@ -453,7 +453,7 @@ Authorization: Bearer JWT_TOKEN
 }
 ```
 
-## 🔧 System APIs
+##  System APIs
 
 ### 17. فحص صحة النظام
 ```
@@ -491,7 +491,7 @@ GET https://mahmoudapi-production.up.railway.app/api
 }
 ```
 
-## 🔑 المصادقة
+##  المصادقة
 
 ### JWT Token
 جميع الـ APIs المحمية تحتاج إلى JWT Token في Header:
@@ -509,7 +509,7 @@ curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
   }'
 ```
 
-## 📊 Status Codes
+##  Status Codes
 
 ### النجاح:
 - `200` - OK
@@ -526,7 +526,7 @@ curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
 - `500` - Internal Server Error
 - `503` - Service Unavailable
 
-## 🧪 اختبار الـ APIs
+##  اختبار الـ APIs
 
 ### باستخدام PowerShell:
 ```powershell
@@ -562,10 +562,10 @@ curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
   -H "Authorization: Bearer JWT_TOKEN"
 ```
 
-## 📱 موقع الاختبار التفاعلي
+##  موقع الاختبار التفاعلي
 https://mahmoudapi-production.up.railway.app
 
-## 🎯 أمثلة سريعة
+##  أمثلة سريعة
 
 ### جلب الخدمات:
 ```bash
@@ -590,7 +590,7 @@ curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
-## 📋 قائمة سريعة للـ APIs
+##  قائمة سريعة للـ APIs
 
 ### APIs عامة (لا تحتاج مصادقة):
 1. `GET /health` - فحص صحة النظام
@@ -614,7 +614,7 @@ curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
 6. `GET /clients` - جلب العملاء
 7. `GET /clients/:id` - جلب عميل محدد
 
-## 🚀 الاستخدام السريع
+##  الاستخدام السريع
 
 ### 1. اختبار النظام
 ```bash
@@ -650,3 +650,6 @@ curl -H "Authorization: Bearer $TOKEN" https://mahmoudapi-production.up.railway.
 ```
 
 ======================================= 
+
+
+
