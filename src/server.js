@@ -21,7 +21,7 @@ const gracefulShutdown = (signal) => {
 };
 
 // Start server
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log('=======================================');
   console.log('🚀 The Flow API Server');
   console.log('=======================================');
@@ -31,10 +31,18 @@ const server = app.listen(PORT, () => {
   console.log(`🔗 API status: http://localhost:${PORT}/api`);
   console.log(`🌐 Testing site: http://localhost:${PORT}`);
   console.log('=======================================');
+  
+  // Additional debugging for Railway
+  console.log(`🔍 Process ID: ${process.pid}`);
+  console.log(`🔍 Memory usage: ${JSON.stringify(process.memoryUsage())}`);
+  console.log(`🔍 Platform: ${process.platform}`);
+  console.log(`🔍 Node version: ${process.version}`);
 });
 
 // Handle server errors
 server.on('error', (error) => {
+  console.error('❌ Server error:', error);
+  
   if (error.syscall !== 'listen') {
     throw error;
   }

@@ -48,13 +48,33 @@ const setupMiddleware = () => {
 
 // Route setup
 const setupRoutes = () => {
-  // Health check route
+  // Health check route - more robust for Railway
   app.get('/health', (req, res) => {
+    try {
+      res.status(200).json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        environment: NODE_ENV,
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        pid: process.pid
+      });
+    } catch (error) {
+      console.error('Health check error:', error);
+      res.status(500).json({
+        status: 'ERROR',
+        message: 'Health check failed',
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
+  // Simple health check for Railway
+  app.get('/', (req, res) => {
     res.status(200).json({
       status: 'OK',
-      timestamp: new Date().toISOString(),
-      environment: NODE_ENV,
-      uptime: process.uptime()
+      message: 'The Flow API is running',
+      timestamp: new Date().toISOString()
     });
   });
 
@@ -65,11 +85,6 @@ const setupRoutes = () => {
       version: '1.0.0',
       environment: NODE_ENV
     });
-  });
-
-  // Root route - serve the testing site
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'index.html'));
   });
 
   // API routes
