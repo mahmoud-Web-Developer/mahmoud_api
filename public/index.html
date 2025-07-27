@@ -487,10 +487,19 @@
             const status = isSuccess ? 'success' : 'error';
             const statusText = isSuccess ? 'نجح' : 'فشل';
             
+            let displayData = data;
+            if (typeof data === 'string') {
+                try {
+                    displayData = JSON.parse(data);
+                } catch (e) {
+                    displayData = { message: data };
+                }
+            }
+            
             element.innerHTML = `
                 <div class="result ${status}">
                     <div class="status ${status}">${statusText}</div>
-                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    <pre>${JSON.stringify(displayData, null, 2)}</pre>
                 </div>
             `;
         }
@@ -512,12 +521,19 @@
                     config.headers['Authorization'] = `Bearer ${currentToken}`;
                 }
 
+                console.log(`Calling API: ${API_BASE}${endpoint}`);
+                console.log('Config:', config);
+
                 const response = await fetch(`${API_BASE}${endpoint}`, config);
+                console.log('Response status:', response.status);
+                
                 const data = await response.json();
+                console.log('Response data:', data);
 
                 hideLoading();
                 return { success: response.ok, data, status: response.status };
             } catch (error) {
+                console.error('API Error:', error);
                 hideLoading();
                 return { success: false, data: { message: error.message }, status: 0 };
             }
@@ -556,28 +572,31 @@
         }
 
         async function loginAsAdmin() {
-            // محاولة تسجيل دخول كـ admin
-            const result = await apiCall('/auth/login', {
-                method: 'POST',
-                body: JSON.stringify({ 
-                    username: 'admin', 
-                    password: 'admin123',
-                    email: 'admin@example.com'
-                })
-            });
+            try {
+                // محاولة تسجيل دخول كـ admin
+                const result = await apiCall('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ 
+                        username: 'admin', 
+                        password: 'admin123'
+                    })
+                });
 
-            if (result.success && result.data.data?.token) {
-                currentToken = result.data.data.token;
-                localStorage.setItem('token', currentToken);
-                document.getElementById('tokenDisplay').style.display = 'block';
-                document.getElementById('currentToken').textContent = currentToken.substring(0, 50) + '...';
-                document.getElementById('autoLoginNotice').style.display = 'none';
-            } else {
-                // إذا فشل، جرب إنشاء admin أولاً
-                await createAdminUser();
+                if (result.success && result.data.data?.token) {
+                    currentToken = result.data.data.token;
+                    localStorage.setItem('token', currentToken);
+                    document.getElementById('tokenDisplay').style.display = 'block';
+                    document.getElementById('currentToken').textContent = currentToken.substring(0, 50) + '...';
+                    document.getElementById('autoLoginNotice').style.display = 'none';
+                    console.log('تم تسجيل الدخول بنجاح');
+                } else {
+                    console.log('فشل في تسجيل الدخول، محاولة إنشاء admin');
+                    // إذا فشل، جرب إنشاء admin أولاً
+                    await createAdminUser();
+                }
+            } catch (error) {
+                console.error('خطأ في تسجيل الدخول:', error);
             }
-
-            displayResult('loginResult', result.data, result.success);
         }
 
         async function createAdminUser() {
@@ -603,32 +622,40 @@
         }
 
         async function getStats() {
-            const result = await apiCall('/dashboard/stats');
-            displayResult('statsResult', result.data, result.success);
+            const result = await apiCall('/dashboard');
+            if (result.success && result.data.data?.stats) {
+                displayResult('statsResult', result.data.data.stats, result.success);
+            } else {
+                displayResult('statsResult', result.data, result.success);
+            }
         }
 
         async function getRecentActivity() {
-            const result = await apiCall('/dashboard/recent-activity');
-            displayResult('activityResult', result.data, result.success);
+            const result = await apiCall('/dashboard');
+            if (result.success && result.data.data?.recentActivity) {
+                displayResult('activityResult', result.data.data.recentActivity, result.success);
+            } else {
+                displayResult('activityResult', result.data, result.success);
+            }
         }
 
         async function getAllUsers() {
-            const result = await apiCall('/admin/users');
+            const result = await apiCall('/clients');
             displayResult('adminResult', result.data, result.success);
         }
 
         async function getSystemStats() {
-            const result = await apiCall('/admin/system-stats');
+            const result = await apiCall('/health');
             displayResult('adminResult', result.data, result.success);
         }
 
         async function getAllServices() {
-            const result = await apiCall('/admin/services');
+            const result = await apiCall('/services');
             displayResult('servicesResult', result.data, result.success);
         }
 
         async function getContactRequests() {
-            const result = await apiCall('/admin/contact-requests');
+            const result = await apiCall('/contact-requests');
             displayResult('requestsResult', result.data, result.success);
         }
 
@@ -693,9 +720,27 @@
 
         // تسجيل دخول تلقائي عند تحميل الصفحة
         window.addEventListener('load', async () => {
+            console.log('تحميل الصفحة...');
+            
+            // اختبار الاتصال بالـ API أولاً
+            try {
+                const healthCheck = await apiCall('/health');
+                console.log('اختبار الاتصال:', healthCheck);
+                
+                if (!healthCheck.success) {
+                    console.error('فشل في الاتصال بالـ API');
+                    return;
+                }
+            } catch (error) {
+                console.error('خطأ في اختبار الاتصال:', error);
+                return;
+            }
+            
             if (!currentToken) {
+                console.log('لا يوجد token، محاولة تسجيل دخول تلقائي');
                 await loginAsAdmin();
             } else {
+                console.log('Token موجود، تفعيل العرض');
                 document.getElementById('tokenDisplay').style.display = 'block';
                 document.getElementById('currentToken').textContent = currentToken.substring(0, 50) + '...';
                 document.getElementById('autoLoginNotice').style.display = 'none';
