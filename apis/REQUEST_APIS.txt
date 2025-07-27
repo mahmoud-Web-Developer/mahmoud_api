@@ -1,0 +1,4 @@
+POST https://mahmoudapi-production.up.railway.app/contact-requests - إرسال طلب تواصل
+GET https://mahmoudapi-production.up.railway.app/meetings/slots - جلب أوقات الاجتماعات المتاحة
+POST https://mahmoudapi-production.up.railway.app/meetings - حجز اجتماع
+POST https://mahmoudapi-production.up.railway.app/briefs - إرسال Brief جديد 

@@ -1,0 +1,2 @@
+POST https://mahmoudapi-production.up.railway.app/auth/signup - تسجيل مستخدم جديد
+POST https://mahmoudapi-production.up.railway.app/auth/login - تسجيل الدخول والحصول على JWT 

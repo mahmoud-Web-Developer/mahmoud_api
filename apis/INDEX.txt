@@ -1,0 +1,90 @@
+=======================================
+   فهرس مجلد الـ APIs
+=======================================
+
+## 📁 محتويات المجلد
+
+### 📋 ملفات الـ APIs:
+
+1. **ALL_APIS.txt** - جميع الـ APIs في ملف واحد (18 API)
+2. **AUTHENTICATION_APIS.txt** - APIs المصادقة (2 APIs)
+3. **CONTENT_APIS.txt** - APIs المحتوى (3 APIs)
+4. **REQUEST_APIS.txt** - APIs الطلبات (4 APIs)
+5. **DASHBOARD_ADMIN_APIS.txt** - APIs لوحة التحكم والإدارة (4 APIs)
+6. **CLIENTS_APIS.txt** - APIs إدارة العملاء (3 APIs)
+7. **SYSTEM_APIS.txt** - APIs النظام (2 APIs)
+8. **INDEX.txt** - هذا الملف
+
+## 📊 إحصائيات الـ APIs
+
+### إجمالي الـ APIs: 18 API
+- Authentication APIs: 2 APIs
+- Content APIs: 3 APIs
+- Request APIs: 4 APIs
+- Dashboard & Admin APIs: 4 APIs
+- Clients Management APIs: 3 APIs
+- System APIs: 2 APIs
+
+## 🌐 الـ Base URL
+https://mahmoudapi-production.up.railway.app
+
+## 🔑 المصادقة
+
+### APIs عامة (لا تحتاج مصادقة):
+- جميع Content APIs
+- جميع Request APIs
+- جميع System APIs
+- Authentication APIs
+
+### APIs محمية (تحتاج JWT Token):
+- جميع Dashboard & Admin APIs
+- جميع Clients Management APIs
+
+## 🧪 اختبار الـ APIs
+
+### اختبار سريع:
+```bash
+curl https://mahmoudapi-production.up.railway.app/health
+```
+
+### اختبار شامل:
+```powershell
+.\test-all-apis.ps1
+```
+
+### موقع الاختبار التفاعلي:
+https://mahmoudapi-production.up.railway.app
+
+## 📋 قائمة سريعة
+
+### Authentication APIs:
+- POST /auth/signup - تسجيل مستخدم جديد
+- POST /auth/login - تسجيل الدخول والحصول على JWT
+
+### Content APIs:
+- GET /services - جلب جميع الخدمات
+- GET /portfolio - جلب جميع عناصر البورتفوليو
+- GET /news - جلب آخر الأخبار
+
+### Request APIs:
+- POST /contact-requests - إرسال طلب تواصل
+- GET /meetings/slots - جلب أوقات الاجتماعات المتاحة
+- POST /meetings - حجز اجتماع
+- POST /briefs - إرسال Brief جديد
+
+### Dashboard & Admin APIs:
+- GET /dashboard - جلب بيانات لوحة التحكم
+- POST /requests/contact - بدء طلب تواصل
+- POST /requests/meeting - بدء طلب اجتماع
+- POST /requests/brief - بدء طلب Brief
+
+### Clients Management APIs:
+- POST /clients - إضافة عميل جديد
+- GET /clients - جلب جميع العملاء
+- GET /clients/:id - جلب عميل محدد
+
+### System APIs:
+- GET /health - فحص صحة النظام
+- GET /api - معلومات الـ API
+
+======================================= 

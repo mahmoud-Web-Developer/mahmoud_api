@@ -1,0 +1,2 @@
+GET https://mahmoudapi-production.up.railway.app/health - فحص صحة النظام
+GET https://mahmoudapi-production.up.railway.app/api - معلومات الـ API 

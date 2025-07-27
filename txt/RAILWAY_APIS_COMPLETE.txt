@@ -1,0 +1,593 @@
+=======================================
+   Railway APIs - القائمة الشاملة
+=======================================
+
+## 🌐 الـ Base URL
+https://mahmoudapi-production.up.railway.app
+
+## 📊 إحصائيات الـ APIs
+- إجمالي الـ APIs: 18 API
+- APIs عامة: 10 APIs (لا تحتاج مصادقة)
+- APIs محمية: 8 APIs (تحتاج JWT Token)
+
+## 🔐 Authentication APIs
+
+### 1. تسجيل مستخدم جديد
+```
+POST https://mahmoudapi-production.up.railway.app/auth/signup
+```
+**البيانات المطلوبة:**
+```json
+{
+  "username": "user123",
+  "email": "user@example.com",
+  "password": "password123",
+  "role": "user"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم تسجيل المستخدم بنجاح",
+  "data": {
+    "user": {
+      "id": 1,
+      "username": "user123",
+      "email": "user@example.com",
+      "role": "user"
+    },
+    "token": "JWT_TOKEN_HERE"
+  }
+}
+```
+
+### 2. تسجيل الدخول
+```
+POST https://mahmoudapi-production.up.railway.app/auth/login
+```
+**البيانات المطلوبة:**
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم تسجيل الدخول بنجاح",
+  "data": {
+    "user": {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@example.com",
+      "role": "admin"
+    },
+    "token": "JWT_TOKEN_HERE"
+  }
+}
+```
+
+## 📄 Content APIs
+
+### 3. جلب جميع الخدمات
+```
+GET https://mahmoudapi-production.up.railway.app/services
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "تطوير الويب",
+      "description": "تطوير مواقع الويب الحديثة",
+      "icon": "web",
+      "price": "1000-5000"
+    }
+  ]
+}
+```
+
+### 4. جلب البورتفوليو
+```
+GET https://mahmoudapi-production.up.railway.app/portfolio
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "مشروع تجاري",
+      "description": "موقع تجاري متكامل",
+      "image": "project1.jpg",
+      "category": "web",
+      "url": "https://example.com"
+    }
+  ]
+}
+```
+
+### 5. جلب الأخبار
+```
+GET https://mahmoudapi-production.up.railway.app/news
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "أحدث التقنيات",
+      "content": "محتوى الخبر هنا",
+      "date": "2024-01-15",
+      "image": "news1.jpg"
+    }
+  ]
+}
+```
+
+## 📝 Request APIs
+
+### 6. إرسال طلب تواصل
+```
+POST https://mahmoudapi-production.up.railway.app/contact-requests
+```
+**البيانات المطلوبة:**
+```json
+{
+  "name": "أحمد محمد",
+  "email": "ahmed@example.com",
+  "phone": "+201234567890",
+  "message": "أريد استشارة حول مشروعي"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم إرسال طلب التواصل بنجاح",
+  "data": {
+    "id": 1,
+    "name": "أحمد محمد",
+    "email": "ahmed@example.com",
+    "status": "pending"
+  }
+}
+```
+
+### 7. جلب أوقات الاجتماعات المتاحة
+```
+GET https://mahmoudapi-production.up.railway.app/meetings/slots
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "date": "2024-01-20",
+      "time": "10:00",
+      "available": true
+    }
+  ]
+}
+```
+
+### 8. حجز اجتماع
+```
+POST https://mahmoudapi-production.up.railway.app/meetings
+```
+**البيانات المطلوبة:**
+```json
+{
+  "name": "أحمد محمد",
+  "email": "ahmed@example.com",
+  "phone": "+201234567890",
+  "date": "2024-01-20",
+  "time": "10:00",
+  "purpose": "مناقشة مشروع جديد"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم حجز الاجتماع بنجاح",
+  "data": {
+    "id": 1,
+    "name": "أحمد محمد",
+    "date": "2024-01-20",
+    "time": "10:00"
+  }
+}
+```
+
+### 9. إرسال Brief جديد
+```
+POST https://mahmoudapi-production.up.railway.app/briefs
+```
+**البيانات المطلوبة:**
+```json
+{
+  "name": "أحمد محمد",
+  "email": "ahmed@example.com",
+  "phone": "+201234567890",
+  "projectType": "website",
+  "budget": "5000",
+  "timeline": "3 months",
+  "description": "وصف المشروع هنا"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم إرسال الـ Brief بنجاح",
+  "data": {
+    "id": 1,
+    "name": "أحمد محمد",
+    "projectType": "website",
+    "status": "pending"
+  }
+}
+```
+
+## 🎛️ Dashboard & Admin APIs
+
+### 10. جلب بيانات لوحة التحكم
+```
+GET https://mahmoudapi-production.up.railway.app/dashboard
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": {
+    "stats": {
+      "totalUsers": 150,
+      "totalRequests": 45,
+      "totalMeetings": 23,
+      "totalBriefs": 12
+    },
+    "recentActivity": [
+      {
+        "id": 1,
+        "type": "contact_request",
+        "message": "طلب تواصل جديد من أحمد محمد",
+        "date": "2024-01-15T10:30:00Z"
+      }
+    ]
+  }
+}
+```
+
+### 11. بدء طلب تواصل (Admin)
+```
+POST https://mahmoudapi-production.up.railway.app/requests/contact
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**البيانات المطلوبة:**
+```json
+{
+  "clientId": 1,
+  "message": "رسالة من الإدارة"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم بدء طلب التواصل",
+  "data": {
+    "id": 1,
+    "clientId": 1,
+    "status": "initiated"
+  }
+}
+```
+
+### 12. بدء طلب اجتماع (Admin)
+```
+POST https://mahmoudapi-production.up.railway.app/requests/meeting
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**البيانات المطلوبة:**
+```json
+{
+  "clientId": 1,
+  "date": "2024-01-25",
+  "time": "14:00",
+  "purpose": "مناقشة المشروع"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم بدء طلب الاجتماع",
+  "data": {
+    "id": 1,
+    "clientId": 1,
+    "date": "2024-01-25",
+    "time": "14:00"
+  }
+}
+```
+
+### 13. بدء طلب Brief (Admin)
+```
+POST https://mahmoudapi-production.up.railway.app/requests/brief
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**البيانات المطلوبة:**
+```json
+{
+  "clientId": 1,
+  "projectType": "website",
+  "requirements": "متطلبات المشروع"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم بدء طلب الـ Brief",
+  "data": {
+    "id": 1,
+    "clientId": 1,
+    "projectType": "website",
+    "status": "pending"
+  }
+}
+```
+
+## 👥 Clients Management APIs
+
+### 14. إضافة عميل جديد
+```
+POST https://mahmoudapi-production.up.railway.app/clients
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**البيانات المطلوبة:**
+```json
+{
+  "name": "شركة ABC",
+  "email": "info@abc.com",
+  "phone": "+201234567890",
+  "address": "القاهرة، مصر",
+  "notes": "ملاحظات حول العميل"
+}
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "تم إضافة العميل بنجاح",
+  "data": {
+    "id": 1,
+    "name": "شركة ABC",
+    "email": "info@abc.com",
+    "status": "active"
+  }
+}
+```
+
+### 15. جلب جميع العملاء
+```
+GET https://mahmoudapi-production.up.railway.app/clients
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "شركة ABC",
+      "email": "info@abc.com",
+      "phone": "+201234567890",
+      "status": "active",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+### 16. جلب عميل محدد
+```
+GET https://mahmoudapi-production.up.railway.app/clients/1
+```
+**Headers المطلوبة:**
+```
+Authorization: Bearer JWT_TOKEN
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "شركة ABC",
+    "email": "info@abc.com",
+    "phone": "+201234567890",
+    "address": "القاهرة، مصر",
+    "notes": "ملاحظات حول العميل",
+    "status": "active",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "projects": [
+      {
+        "id": 1,
+        "title": "موقع الشركة",
+        "status": "completed"
+      }
+    ]
+  }
+}
+```
+
+## 🔧 System APIs
+
+### 17. فحص صحة النظام
+```
+GET https://mahmoudapi-production.up.railway.app/health
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "message": "API is running",
+  "data": {
+    "status": "healthy",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+### 18. معلومات الـ API
+```
+GET https://mahmoudapi-production.up.railway.app/api
+```
+**الاستجابة:**
+```json
+{
+  "success": true,
+  "data": {
+    "name": "The Flow API",
+    "version": "1.0.0",
+    "description": "API شامل لإدارة المشاريع والخدمات",
+    "baseUrl": "https://mahmoudapi-production.up.railway.app",
+    "totalEndpoints": 18,
+    "documentation": "https://mahmoudapi-production.up.railway.app"
+  }
+}
+```
+
+## 🔑 المصادقة
+
+### JWT Token
+جميع الـ APIs المحمية تحتاج إلى JWT Token في Header:
+```
+Authorization: Bearer JWT_TOKEN
+```
+
+### الحصول على Token
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+  }'
+```
+
+## 📊 Status Codes
+
+### النجاح:
+- `200` - OK
+- `201` - Created
+
+### أخطاء العميل:
+- `400` - Bad Request
+- `401` - Unauthorized
+- `403` - Forbidden
+- `404` - Not Found
+- `422` - Validation Error
+
+### أخطاء الخادم:
+- `500` - Internal Server Error
+- `503` - Service Unavailable
+
+## 🧪 اختبار الـ APIs
+
+### باستخدام PowerShell:
+```powershell
+# اختبار صحة النظام
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/health" -Method GET
+
+# تسجيل الدخول
+$loginData = @{
+    username = "admin"
+    password = "admin123"
+} | ConvertTo-Json
+
+$response = Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/auth/login" -Method POST -Body $loginData -ContentType "application/json"
+$token = $response.data.token
+
+# اختبار API محمي
+$headers = @{ "Authorization" = "Bearer $token" }
+Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/dashboard" -Method GET -Headers $headers
+```
+
+### باستخدام curl:
+```bash
+# اختبار صحة النظام
+curl -X GET https://mahmoudapi-production.up.railway.app/health
+
+# تسجيل الدخول
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}'
+
+# اختبار API محمي
+curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
+  -H "Authorization: Bearer JWT_TOKEN"
+```
+
+## 📱 موقع الاختبار التفاعلي
+https://mahmoudapi-production.up.railway.app
+
+## 🎯 أمثلة سريعة
+
+### جلب الخدمات:
+```bash
+curl -X GET https://mahmoudapi-production.up.railway.app/services
+```
+
+### إرسال طلب تواصل:
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/contact-requests \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "أحمد محمد",
+    "email": "ahmed@example.com",
+    "phone": "+201234567890",
+    "message": "أريد استشارة"
+  }'
+```
+
+### جلب لوحة التحكم (مع Token):
+```bash
+curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+======================================= 

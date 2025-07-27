@@ -1,0 +1,188 @@
+=======================================
+   Railway APIs - مرجع سريع
+=======================================
+
+## 🌐 الـ Base URL
+https://mahmoudapi-production.up.railway.app
+
+## 📊 إحصائيات سريعة
+- إجمالي الـ APIs: 18 API
+- APIs عامة: 10 APIs
+- APIs محمية: 8 APIs
+
+## 📋 قائمة سريعة للـ APIs
+
+### 🔐 Authentication APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| POST | `/auth/signup` | تسجيل مستخدم جديد | ❌ |
+| POST | `/auth/login` | تسجيل الدخول | ❌ |
+
+### 📄 Content APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| GET | `/services` | جلب جميع الخدمات | ❌ |
+| GET | `/portfolio` | جلب البورتفوليو | ❌ |
+| GET | `/news` | جلب الأخبار | ❌ |
+
+### 📝 Request APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| POST | `/contact-requests` | إرسال طلب تواصل | ❌ |
+| GET | `/meetings/slots` | أوقات الاجتماعات | ❌ |
+| POST | `/meetings` | حجز اجتماع | ❌ |
+| POST | `/briefs` | إرسال Brief | ❌ |
+
+### 🎛️ Dashboard & Admin APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| GET | `/dashboard` | لوحة التحكم | ✅ |
+| POST | `/requests/contact` | بدء طلب تواصل | ✅ |
+| POST | `/requests/meeting` | بدء طلب اجتماع | ✅ |
+| POST | `/requests/brief` | بدء طلب Brief | ✅ |
+
+### 👥 Clients Management APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| POST | `/clients` | إضافة عميل | ✅ |
+| GET | `/clients` | جلب العملاء | ✅ |
+| GET | `/clients/:id` | جلب عميل محدد | ✅ |
+
+### 🔧 System APIs
+| Method | Endpoint | الوصف | المصادقة |
+|--------|----------|-------|----------|
+| GET | `/health` | فحص صحة النظام | ❌ |
+| GET | `/api` | معلومات الـ API | ❌ |
+
+## 🔑 المصادقة
+
+### JWT Token
+```
+Authorization: Bearer JWT_TOKEN
+```
+
+### الحصول على Token
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}'
+```
+
+## 🧪 أمثلة سريعة
+
+### اختبار صحة النظام
+```bash
+curl -X GET https://mahmoudapi-production.up.railway.app/health
+```
+
+### جلب الخدمات
+```bash
+curl -X GET https://mahmoudapi-production.up.railway.app/services
+```
+
+### تسجيل الدخول
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}'
+```
+
+### لوحة التحكم (مع Token)
+```bash
+curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### إرسال طلب تواصل
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/contact-requests \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "أحمد محمد",
+    "email": "ahmed@example.com",
+    "phone": "+201234567890",
+    "message": "أريد استشارة"
+  }'
+```
+
+## 📱 موقع الاختبار التفاعلي
+https://mahmoudapi-production.up.railway.app
+
+## 🧪 اختبار شامل
+```powershell
+.\test-railway-apis.ps1
+```
+
+## 📊 Status Codes
+
+### النجاح:
+- `200` - OK
+- `201` - Created
+
+### أخطاء العميل:
+- `400` - Bad Request
+- `401` - Unauthorized
+- `403` - Forbidden
+- `404` - Not Found
+- `422` - Validation Error
+
+### أخطاء الخادم:
+- `500` - Internal Server Error
+- `503` - Service Unavailable
+
+## 🎯 تصنيف الـ APIs
+
+### APIs عامة (لا تحتاج مصادقة):
+1. `/health` - فحص صحة النظام
+2. `/api` - معلومات الـ API
+3. `/services` - جلب الخدمات
+4. `/portfolio` - جلب البورتفوليو
+5. `/news` - جلب الأخبار
+6. `/meetings/slots` - أوقات الاجتماعات
+7. `/auth/signup` - تسجيل مستخدم جديد
+8. `/auth/login` - تسجيل الدخول
+9. `/contact-requests` - إرسال طلب تواصل
+10. `/meetings` - حجز اجتماع
+11. `/briefs` - إرسال Brief
+
+### APIs محمية (تحتاج JWT Token):
+1. `/dashboard` - لوحة التحكم
+2. `/requests/contact` - بدء طلب تواصل
+3. `/requests/meeting` - بدء طلب اجتماع
+4. `/requests/brief` - بدء طلب Brief
+5. `/clients` - إدارة العملاء
+6. `/clients/:id` - جلب عميل محدد
+
+## 🚀 الاستخدام السريع
+
+### 1. اختبار النظام
+```bash
+curl https://mahmoudapi-production.up.railway.app/health
+```
+
+### 2. جلب المحتوى
+```bash
+curl https://mahmoudapi-production.up.railway.app/services
+curl https://mahmoudapi-production.up.railway.app/portfolio
+curl https://mahmoudapi-production.up.railway.app/news
+```
+
+### 3. إرسال طلب
+```bash
+curl -X POST https://mahmoudapi-production.up.railway.app/contact-requests \
+  -H "Content-Type: application/json" \
+  -d '{"name": "أحمد", "email": "ahmed@example.com", "phone": "+201234567890", "message": "استشارة"}'
+```
+
+### 4. تسجيل الدخول والوصول للوحة التحكم
+```bash
+# تسجيل الدخول
+TOKEN=$(curl -s -X POST https://mahmoudapi-production.up.railway.app/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}' | jq -r '.data.token')
+
+# الوصول للوحة التحكم
+curl -H "Authorization: Bearer $TOKEN" https://mahmoudapi-production.up.railway.app/dashboard
+```
+
+======================================= 

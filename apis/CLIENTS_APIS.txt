@@ -1,0 +1,3 @@
+POST https://mahmoudapi-production.up.railway.app/clients - إضافة عميل جديد
+GET https://mahmoudapi-production.up.railway.app/clients - جلب جميع العملاء
+GET https://mahmoudapi-production.up.railway.app/clients/:id - جلب عميل محدد 

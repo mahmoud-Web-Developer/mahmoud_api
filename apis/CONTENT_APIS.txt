@@ -1,0 +1,3 @@
+GET https://mahmoudapi-production.up.railway.app/services - جلب جميع الخدمات
+GET https://mahmoudapi-production.up.railway.app/portfolio - جلب جميع عناصر البورتفوليو
+GET https://mahmoudapi-production.up.railway.app/news - جلب آخر الأخبار 
