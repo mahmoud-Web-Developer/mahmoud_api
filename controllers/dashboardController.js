@@ -51,7 +51,7 @@ exports.getDashboardStats = (req, res) => {
     const stats = {
       clients: {
         count: totalClients,
-        change: "+12%", // يمكن حسابها من البيانات الفعلية
+        change: "0%",
         icon: "users"
       },
       projectsCompleted: {
@@ -61,12 +61,12 @@ exports.getDashboardStats = (req, res) => {
       },
       avgCompletion: {
         count: avgCompletionTime.toFixed(1),
-        change: "-1.4%", // يمكن حسابها من البيانات الفعلية
+        change: "0%",
         icon: "clock"
       },
       revenue: {
         count: `$${totalRevenue.toLocaleString()}`,
-        change: "+5.4%", // يمكن حسابها من البيانات الفعلية
+        change: "0%",
         icon: "dollar-sign"
       }
     };

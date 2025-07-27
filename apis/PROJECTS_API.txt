@@ -24,31 +24,12 @@ https://mahmoudapi-production.up.railway.app/projects
 ```json
 {
   "success": true,
-  "data": [
-    {
-      "id": 1,
-      "title": "تطوير موقع إلكتروني",
-      "description": "تطوير موقع إلكتروني متكامل",
-      "clientId": 1,
-      "clientName": "شركة ABC",
-      "assignedTo": "أحمد محمد",
-      "startDate": "2024-01-15T00:00:00.000Z",
-      "endDate": "2024-03-15T00:00:00.000Z",
-      "budget": 5000,
-      "priority": "high",
-      "status": "in-progress",
-      "progress": 60,
-      "revenue": 3000,
-      "completionTime": null,
-      "createdAt": "2024-01-15T00:00:00.000Z",
-      "updatedAt": "2024-02-01T00:00:00.000Z"
-    }
-  ],
-  "count": 1,
-  "total": 1,
+  "data": [],
+  "count": 0,
+  "total": 0,
   "page": 1,
   "limit": 10,
-  "totalPages": 1
+  "totalPages": 0
 }
 ```
 
@@ -60,13 +41,13 @@ https://mahmoudapi-production.up.railway.app/projects
 {
   "success": true,
   "data": {
-    "total": 10,
-    "completed": 5,
-    "pending": 3,
-    "inProgress": 2,
-    "totalRevenue": 25000,
-    "avgCompletionTime": "45.2",
-    "completionRate": "50.0"
+    "total": 0,
+    "completed": 0,
+    "pending": 0,
+    "inProgress": 0,
+    "totalRevenue": 0,
+    "avgCompletionTime": "0.0",
+    "completionRate": "0.0"
   }
 }
 ```
@@ -74,28 +55,36 @@ https://mahmoudapi-production.up.railway.app/projects
 ### 3. جلب مشروع محدد
 **GET** `/projects/:id`
 
-**Response:**
+**Response (Success):**
 ```json
 {
   "success": true,
   "data": {
     "id": 1,
-    "title": "تطوير موقع إلكتروني",
-    "description": "تطوير موقع إلكتروني متكامل",
+    "title": "عنوان المشروع",
+    "description": "وصف المشروع",
     "clientId": 1,
-    "clientName": "شركة ABC",
-    "assignedTo": "أحمد محمد",
-    "startDate": "2024-01-15T00:00:00.000Z",
-    "endDate": "2024-03-15T00:00:00.000Z",
+    "clientName": "اسم العميل",
+    "assignedTo": "المسؤول عن المشروع",
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-03-01T00:00:00.000Z",
     "budget": 5000,
     "priority": "high",
     "status": "in-progress",
-    "progress": 60,
-    "revenue": 3000,
+    "progress": 50,
+    "revenue": 2500,
     "completionTime": null,
-    "createdAt": "2024-01-15T00:00:00.000Z",
-    "updatedAt": "2024-02-01T00:00:00.000Z"
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-15T00:00:00.000Z"
   }
+}
+```
+
+**Response (Not Found):**
+```json
+{
+  "success": false,
+  "message": "المشروع غير موجود"
 }
 ```
 
@@ -105,13 +94,13 @@ https://mahmoudapi-production.up.railway.app/projects
 **Request Body:**
 ```json
 {
-  "title": "تطوير تطبيق موبايل",
-  "description": "تطوير تطبيق موبايل للطلبات",
+  "title": "عنوان المشروع",
+  "description": "وصف المشروع",
   "clientId": 1,
-  "assignedTo": "سارة أحمد",
-  "startDate": "2024-02-01",
-  "endDate": "2024-04-01",
-  "budget": 8000,
+  "assignedTo": "المسؤول عن المشروع",
+  "startDate": "2024-01-01",
+  "endDate": "2024-03-01",
+  "budget": 5000,
   "priority": "high",
   "status": "pending"
 }
@@ -123,22 +112,22 @@ https://mahmoudapi-production.up.railway.app/projects
   "success": true,
   "message": "تم إنشاء المشروع بنجاح",
   "data": {
-    "id": 2,
-    "title": "تطوير تطبيق موبايل",
-    "description": "تطوير تطبيق موبايل للطلبات",
+    "id": 1,
+    "title": "عنوان المشروع",
+    "description": "وصف المشروع",
     "clientId": 1,
-    "clientName": "شركة ABC",
-    "assignedTo": "سارة أحمد",
-    "startDate": "2024-02-01T00:00:00.000Z",
-    "endDate": "2024-04-01T00:00:00.000Z",
-    "budget": 8000,
+    "clientName": "اسم العميل",
+    "assignedTo": "المسؤول عن المشروع",
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-03-01T00:00:00.000Z",
+    "budget": 5000,
     "priority": "high",
     "status": "pending",
     "progress": 0,
     "revenue": 0,
     "completionTime": null,
-    "createdAt": "2024-02-01T00:00:00.000Z",
-    "updatedAt": "2024-02-01T00:00:00.000Z"
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
   }
 }
 ```
@@ -149,9 +138,9 @@ https://mahmoudapi-production.up.railway.app/projects
 **Request Body:**
 ```json
 {
-  "title": "تطوير تطبيق موبايل محسن",
-  "description": "تطوير تطبيق موبايل للطلبات مع ميزات إضافية",
-  "budget": 10000,
+  "title": "عنوان المشروع المحدث",
+  "description": "وصف المشروع المحدث",
+  "budget": 6000,
   "priority": "high"
 }
 ```
@@ -162,22 +151,22 @@ https://mahmoudapi-production.up.railway.app/projects
   "success": true,
   "message": "تم تحديث المشروع بنجاح",
   "data": {
-    "id": 2,
-    "title": "تطوير تطبيق موبايل محسن",
-    "description": "تطوير تطبيق موبايل للطلبات مع ميزات إضافية",
+    "id": 1,
+    "title": "عنوان المشروع المحدث",
+    "description": "وصف المشروع المحدث",
     "clientId": 1,
-    "clientName": "شركة ABC",
-    "assignedTo": "سارة أحمد",
-    "startDate": "2024-02-01T00:00:00.000Z",
-    "endDate": "2024-04-01T00:00:00.000Z",
-    "budget": 10000,
+    "clientName": "اسم العميل",
+    "assignedTo": "المسؤول عن المشروع",
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-03-01T00:00:00.000Z",
+    "budget": 6000,
     "priority": "high",
     "status": "pending",
     "progress": 0,
     "revenue": 0,
     "completionTime": null,
-    "createdAt": "2024-02-01T00:00:00.000Z",
-    "updatedAt": "2024-02-01T12:00:00.000Z"
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-15T12:00:00.000Z"
   }
 }
 ```
@@ -191,22 +180,22 @@ https://mahmoudapi-production.up.railway.app/projects
   "success": true,
   "message": "تم حذف المشروع بنجاح",
   "data": {
-    "id": 2,
-    "title": "تطوير تطبيق موبايل محسن",
-    "description": "تطوير تطبيق موبايل للطلبات مع ميزات إضافية",
+    "id": 1,
+    "title": "عنوان المشروع",
+    "description": "وصف المشروع",
     "clientId": 1,
-    "clientName": "شركة ABC",
-    "assignedTo": "سارة أحمد",
-    "startDate": "2024-02-01T00:00:00.000Z",
-    "endDate": "2024-04-01T00:00:00.000Z",
-    "budget": 10000,
+    "clientName": "اسم العميل",
+    "assignedTo": "المسؤول عن المشروع",
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-03-01T00:00:00.000Z",
+    "budget": 5000,
     "priority": "high",
     "status": "pending",
     "progress": 0,
     "revenue": 0,
     "completionTime": null,
-    "createdAt": "2024-02-01T00:00:00.000Z",
-    "updatedAt": "2024-02-01T12:00:00.000Z"
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-15T12:00:00.000Z"
   }
 }
 ```
@@ -229,21 +218,21 @@ https://mahmoudapi-production.up.railway.app/projects
   "message": "تم تحديث حالة المشروع بنجاح",
   "data": {
     "id": 1,
-    "title": "تطوير موقع إلكتروني",
-    "description": "تطوير موقع إلكتروني متكامل",
+    "title": "عنوان المشروع",
+    "description": "وصف المشروع",
     "clientId": 1,
-    "clientName": "شركة ABC",
-    "assignedTo": "أحمد محمد",
-    "startDate": "2024-01-15T00:00:00.000Z",
-    "endDate": "2024-03-15T00:00:00.000Z",
+    "clientName": "اسم العميل",
+    "assignedTo": "المسؤول عن المشروع",
+    "startDate": "2024-01-01T00:00:00.000Z",
+    "endDate": "2024-03-01T00:00:00.000Z",
     "budget": 5000,
     "priority": "high",
     "status": "in-progress",
     "progress": 25,
-    "revenue": 3000,
+    "revenue": 0,
     "completionTime": null,
-    "createdAt": "2024-01-15T00:00:00.000Z",
-    "updatedAt": "2024-02-01T12:00:00.000Z"
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-15T12:00:00.000Z"
   }
 }
 ```
