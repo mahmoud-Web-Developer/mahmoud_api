@@ -3,6 +3,9 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
+// Import routes
+const projectsRoutes = require('../routes/projects');
+
 // Initialize express app
 const app = express();
 
@@ -115,6 +118,9 @@ const setupRoutes = () => {
   app.get('/admin', (req, res) => {
     res.json({ message: 'Admin endpoint ready' });
   });
+
+  // Projects API routes - using real routes
+  app.use('/projects', projectsRoutes);
 };
 
 // Error handling middleware

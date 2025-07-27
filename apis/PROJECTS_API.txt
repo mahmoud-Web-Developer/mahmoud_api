@@ -1,0 +1,264 @@
+# ===== API المشاريع - Projects API =====
+
+## نظرة عامة
+API المشاريع يتيح إدارة كاملة للمشاريع في النظام، بما في ذلك إنشاء وتحديث وحذف المشاريع، وتتبع حالتها وإحصائياتها.
+
+## Base URL
+```
+https://mahmoudapi-production.up.railway.app/projects
+```
+
+## ===== العمليات المتاحة =====
+
+### 1. جلب جميع المشاريع
+**GET** `/projects`
+
+**Query Parameters:**
+- `page` (optional): رقم الصفحة (default: 1)
+- `limit` (optional): عدد العناصر في الصفحة (default: 10)
+- `status` (optional): حالة المشروع (pending, in-progress, completed)
+- `clientId` (optional): معرف العميل
+- `priority` (optional): الأولوية (low, medium, high)
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "تطوير موقع إلكتروني",
+      "description": "تطوير موقع إلكتروني متكامل",
+      "clientId": 1,
+      "clientName": "شركة ABC",
+      "assignedTo": "أحمد محمد",
+      "startDate": "2024-01-15T00:00:00.000Z",
+      "endDate": "2024-03-15T00:00:00.000Z",
+      "budget": 5000,
+      "priority": "high",
+      "status": "in-progress",
+      "progress": 60,
+      "revenue": 3000,
+      "completionTime": null,
+      "createdAt": "2024-01-15T00:00:00.000Z",
+      "updatedAt": "2024-02-01T00:00:00.000Z"
+    }
+  ],
+  "count": 1,
+  "total": 1,
+  "page": 1,
+  "limit": 10,
+  "totalPages": 1
+}
+```
+
+### 2. جلب إحصائيات المشاريع
+**GET** `/projects/stats`
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "total": 10,
+    "completed": 5,
+    "pending": 3,
+    "inProgress": 2,
+    "totalRevenue": 25000,
+    "avgCompletionTime": "45.2",
+    "completionRate": "50.0"
+  }
+}
+```
+
+### 3. جلب مشروع محدد
+**GET** `/projects/:id`
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "تطوير موقع إلكتروني",
+    "description": "تطوير موقع إلكتروني متكامل",
+    "clientId": 1,
+    "clientName": "شركة ABC",
+    "assignedTo": "أحمد محمد",
+    "startDate": "2024-01-15T00:00:00.000Z",
+    "endDate": "2024-03-15T00:00:00.000Z",
+    "budget": 5000,
+    "priority": "high",
+    "status": "in-progress",
+    "progress": 60,
+    "revenue": 3000,
+    "completionTime": null,
+    "createdAt": "2024-01-15T00:00:00.000Z",
+    "updatedAt": "2024-02-01T00:00:00.000Z"
+  }
+}
+```
+
+### 4. إنشاء مشروع جديد
+**POST** `/projects`
+
+**Request Body:**
+```json
+{
+  "title": "تطوير تطبيق موبايل",
+  "description": "تطوير تطبيق موبايل للطلبات",
+  "clientId": 1,
+  "assignedTo": "سارة أحمد",
+  "startDate": "2024-02-01",
+  "endDate": "2024-04-01",
+  "budget": 8000,
+  "priority": "high",
+  "status": "pending"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "تم إنشاء المشروع بنجاح",
+  "data": {
+    "id": 2,
+    "title": "تطوير تطبيق موبايل",
+    "description": "تطوير تطبيق موبايل للطلبات",
+    "clientId": 1,
+    "clientName": "شركة ABC",
+    "assignedTo": "سارة أحمد",
+    "startDate": "2024-02-01T00:00:00.000Z",
+    "endDate": "2024-04-01T00:00:00.000Z",
+    "budget": 8000,
+    "priority": "high",
+    "status": "pending",
+    "progress": 0,
+    "revenue": 0,
+    "completionTime": null,
+    "createdAt": "2024-02-01T00:00:00.000Z",
+    "updatedAt": "2024-02-01T00:00:00.000Z"
+  }
+}
+```
+
+### 5. تحديث مشروع
+**PUT** `/projects/:id`
+
+**Request Body:**
+```json
+{
+  "title": "تطوير تطبيق موبايل محسن",
+  "description": "تطوير تطبيق موبايل للطلبات مع ميزات إضافية",
+  "budget": 10000,
+  "priority": "high"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "تم تحديث المشروع بنجاح",
+  "data": {
+    "id": 2,
+    "title": "تطوير تطبيق موبايل محسن",
+    "description": "تطوير تطبيق موبايل للطلبات مع ميزات إضافية",
+    "clientId": 1,
+    "clientName": "شركة ABC",
+    "assignedTo": "سارة أحمد",
+    "startDate": "2024-02-01T00:00:00.000Z",
+    "endDate": "2024-04-01T00:00:00.000Z",
+    "budget": 10000,
+    "priority": "high",
+    "status": "pending",
+    "progress": 0,
+    "revenue": 0,
+    "completionTime": null,
+    "createdAt": "2024-02-01T00:00:00.000Z",
+    "updatedAt": "2024-02-01T12:00:00.000Z"
+  }
+}
+```
+
+### 6. حذف مشروع
+**DELETE** `/projects/:id`
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "تم حذف المشروع بنجاح",
+  "data": {
+    "id": 2,
+    "title": "تطوير تطبيق موبايل محسن",
+    "description": "تطوير تطبيق موبايل للطلبات مع ميزات إضافية",
+    "clientId": 1,
+    "clientName": "شركة ABC",
+    "assignedTo": "سارة أحمد",
+    "startDate": "2024-02-01T00:00:00.000Z",
+    "endDate": "2024-04-01T00:00:00.000Z",
+    "budget": 10000,
+    "priority": "high",
+    "status": "pending",
+    "progress": 0,
+    "revenue": 0,
+    "completionTime": null,
+    "createdAt": "2024-02-01T00:00:00.000Z",
+    "updatedAt": "2024-02-01T12:00:00.000Z"
+  }
+}
+```
+
+### 7. تحديث حالة المشروع
+**PATCH** `/projects/:id/status`
+
+**Request Body:**
+```json
+{
+  "status": "in-progress",
+  "progress": 25
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "تم تحديث حالة المشروع بنجاح",
+  "data": {
+    "id": 1,
+    "title": "تطوير موقع إلكتروني",
+    "description": "تطوير موقع إلكتروني متكامل",
+    "clientId": 1,
+    "clientName": "شركة ABC",
+    "assignedTo": "أحمد محمد",
+    "startDate": "2024-01-15T00:00:00.000Z",
+    "endDate": "2024-03-15T00:00:00.000Z",
+    "budget": 5000,
+    "priority": "high",
+    "status": "in-progress",
+    "progress": 25,
+    "revenue": 3000,
+    "completionTime": null,
+    "createdAt": "2024-01-15T00:00:00.000Z",
+    "updatedAt": "2024-02-01T12:00:00.000Z"
+  }
+}
+```
+
+## ===== حالات المشاريع =====
+- `pending`: في الانتظار
+- `in-progress`: قيد التنفيذ
+- `completed`: مكتمل
+
+## ===== أولويات المشاريع =====
+- `low`: منخفضة
+- `medium`: متوسطة
+- `high`: عالية
+
+## ===== رموز الأخطاء =====
+- `400`: بيانات غير صحيحة
+- `404`: المشروع غير موجود
+- `500`: خطأ في الخادم 

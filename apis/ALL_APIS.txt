@@ -15,4 +15,11 @@ POST https://mahmoudapi-production.up.railway.app/clients - إضافة عميل 
 GET https://mahmoudapi-production.up.railway.app/clients - جلب جميع العملاء
 GET https://mahmoudapi-production.up.railway.app/clients/:id - جلب عميل محدد
 GET https://mahmoudapi-production.up.railway.app/health - فحص صحة النظام
-GET https://mahmoudapi-production.up.railway.app/api - معلومات الـ API 
+GET https://mahmoudapi-production.up.railway.app/api - معلومات الـ API
+GET https://mahmoudapi-production.up.railway.app/projects - جلب جميع المشاريع
+GET https://mahmoudapi-production.up.railway.app/projects/stats - جلب إحصائيات المشاريع
+GET https://mahmoudapi-production.up.railway.app/projects/:id - جلب مشروع محدد
+POST https://mahmoudapi-production.up.railway.app/projects - إنشاء مشروع جديد
+PUT https://mahmoudapi-production.up.railway.app/projects/:id - تحديث مشروع
+DELETE https://mahmoudapi-production.up.railway.app/projects/:id - حذف مشروع
+PATCH https://mahmoudapi-production.up.railway.app/projects/:id/status - تحديث حالة المشروع 
