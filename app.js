@@ -69,8 +69,6 @@ const contentRoutes = require('./routes/content');
 const contentManagementRoutes = require('./routes/contentManagement');
 const requestsManagementRoutes = require('./routes/requestsManagement');
 const notificationsRoutes = require('./routes/notifications');
-const advancedRequestsRoutes = require('./routes/advancedRequests');
-const advancedNotificationsRoutes = require('./routes/advancedNotifications');
 
 // API routes
 const apiRoutes = [
@@ -88,9 +86,7 @@ const apiRoutes = [
   { path: '/content', router: contentRoutes },
   { path: '/content-management', router: contentManagementRoutes },
   { path: '/requests-management', router: requestsManagementRoutes },
-  { path: '/notifications', router: notificationsRoutes },
-  { path: '/advanced-requests', router: advancedRequestsRoutes },
-  { path: '/advanced-notifications', router: advancedNotificationsRoutes }
+  { path: '/notifications', router: notificationsRoutes }
 ];
 
 // Register all API routes
