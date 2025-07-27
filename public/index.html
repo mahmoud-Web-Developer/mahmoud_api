@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Flow API - موقع الاختبار</title>
+    <title>CREVEL - API Testing</title>
     <style>
         * {
             margin: 0;
@@ -14,67 +14,298 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0f172a;
+            color: white;
             min-height: 100vh;
-            padding: 20px;
         }
 
-        .container {
+        /* Header/Navigation */
+        .header {
+            background: #1e293b;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #10b981;
+        }
+
+        .nav-links a.active {
+            color: #10b981;
+        }
+
+        .new-request-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Container */
+        .main-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 2rem;
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #10b981;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: #1e293b;
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid #334155;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        .card h3 {
+            color: #10b981;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
             color: white;
-            padding: 30px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #64748b;
+        }
+
+        /* Buttons */
+        .btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.25rem;
+        }
+
+        .btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #374151;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Results */
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .result.success {
+            background: #065f46;
+            border: 1px solid #10b981;
+            color: #d1fae5;
+        }
+
+        .result.error {
+            background: #7f1d1d;
+            border: 1px solid #ef4444;
+            color: #fecaca;
+        }
+
+        .result.info {
+            background: #1e40af;
+            border: 1px solid #3b82f6;
+            color: #dbeafe;
+        }
+
+        /* Status Indicators */
+        .status {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 3px solid #334155;
+            border-top: 3px solid #10b981;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Token Display */
+        .token-display {
+            background: #334155;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #475569;
+        }
+
+        .token-display strong {
+            color: #10b981;
+        }
+
+        /* Auto Login Notice */
+        .auto-login-notice {
+            background: #1e40af;
+            border: 1px solid #3b82f6;
+            color: #dbeafe;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 30px;
-        }
-
+        /* Tabs */
         .tabs {
             display: flex;
-            background: #f8f9fa;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            background: #334155;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
             overflow: hidden;
         }
 
         .tab {
             flex: 1;
-            padding: 15px 20px;
+            padding: 1rem 1.5rem;
             background: transparent;
             border: none;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 500;
+            color: #94a3b8;
             transition: all 0.3s ease;
         }
 
         .tab.active {
-            background: #667eea;
+            background: #10b981;
             color: white;
         }
 
         .tab:hover {
-            background: #5a6fd8;
+            background: #059669;
             color: white;
         }
 
@@ -86,391 +317,380 @@
             display: block;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 5px;
-        }
-
-        .btn:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e1e5e9;
-        }
-
-        .card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .token-display {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            word-break: break-all;
-        }
-
-        .token-display strong {
-            color: #667eea;
-        }
-
-        .result {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-
-        .result.success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-        }
-
-        .result.error {
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-        }
-
-        .status {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .auto-login-notice {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 15px;
+            .header {
+                flex-direction: column;
+                gap: 1rem;
             }
-            
-            .header h1 {
-                font-size: 2rem;
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
-            
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
             .tabs {
                 flex-direction: column;
             }
-            
-            .grid {
-                grid-template-columns: 1fr;
+
+            .page-title {
+                font-size: 2rem;
             }
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #334155;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: #10b981;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #10b981;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>The Flow API</h1>
-            <p>موقع اختبار شامل للـ API</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">CREVEL</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact Me</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Register</a></li>
+            </ul>
+        </nav>
+        <button class="new-request-btn">
+            + New Request
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <h1 class="page-title">API Testing Dashboard</h1>
+        <p class="subtitle">Comprehensive API testing interface for CREVEL services</p>
+
+        <div class="auto-login-notice" id="autoLoginNotice">
+            <strong>ملاحظة:</strong> سيتم تسجيل الدخول تلقائياً كـ Admin للاختبار
         </div>
 
-        <div class="content">
-            <div class="auto-login-notice" id="autoLoginNotice">
-                <strong>ملاحظة:</strong> سيتم تسجيل الدخول تلقائياً كـ Admin للاختبار
-            </div>
+        <div class="token-display" id="tokenDisplay" style="display: none;">
+            <strong>Current Token:</strong> <span id="currentToken">None</span>
+        </div>
 
-            <div class="token-display" id="tokenDisplay" style="display: none;">
-                <strong>Token الحالي:</strong> <span id="currentToken">لا يوجد</span>
-            </div>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('auth')">Authentication</button>
+            <button class="tab" onclick="showTab('dashboard')">Dashboard</button>
+            <button class="tab" onclick="showTab('admin')">Admin</button>
+            <button class="tab" onclick="showTab('public')">Public Services</button>
+        </div>
 
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('auth')">المصادقة</button>
-                <button class="tab" onclick="showTab('dashboard')">لوحة التحكم</button>
-                <button class="tab" onclick="showTab('admin')">الإدارة</button>
-                <button class="tab" onclick="showTab('public')">الخدمات العامة</button>
-            </div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
 
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>جاري التحميل...</p>
-            </div>
-
-            <div id="auth" class="tab-content active">
-                <div class="grid">
-                    <div class="card">
-                        <h3>تسجيل مستخدم جديد</h3>
-                        <div class="form-group">
-                            <label>اسم المستخدم</label>
-                            <input type="text" id="signupUsername" placeholder="أدخل اسم المستخدم">
-                        </div>
-                        <div class="form-group">
-                            <label>البريد الإلكتروني</label>
-                            <input type="email" id="signupEmail" placeholder="أدخل البريد الإلكتروني">
-                        </div>
-                        <div class="form-group">
-                            <label>كلمة المرور</label>
-                            <input type="password" id="signupPassword" placeholder="أدخل كلمة المرور">
-                        </div>
-                        <button class="btn" onclick="signup()">تسجيل</button>
-                        <div id="signupResult"></div>
+        <!-- Authentication Tab -->
+        <div id="auth" class="tab-content active">
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Create Account</h3>
+                    <p>Register a new user account</p>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="signupUsername" placeholder="Enter username">
                     </div>
-
-                    <div class="card">
-                        <h3>تسجيل الدخول</h3>
-                        <div class="form-group">
-                            <label>اسم المستخدم</label>
-                            <input type="text" id="loginUsername" placeholder="أدخل اسم المستخدم">
-                        </div>
-                        <div class="form-group">
-                            <label>كلمة المرور</label>
-                            <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور">
-                        </div>
-                        <button class="btn" onclick="login()">دخول</button>
-                        <button class="btn btn-secondary" onclick="loginAsAdmin()">دخول كـ Admin</button>
-                        <div id="loginResult"></div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signupEmail" placeholder="Enter email">
                     </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signupPassword" placeholder="Enter password">
+                    </div>
+                    <button class="btn" onclick="signup()">Create Account</button>
+                    <div id="signupResult"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Sign In</h3>
+                    <p>Login to your account</p>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="loginUsername" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter password">
+                    </div>
+                    <button class="btn" onclick="login()">Sign In</button>
+                    <button class="btn btn-secondary" onclick="loginAsAdmin()">Login as Admin</button>
+                    <div id="loginResult"></div>
                 </div>
             </div>
+        </div>
 
-            <div id="dashboard" class="tab-content">
-                <div class="grid">
-                    <div class="card">
-                        <h3>لوحة التحكم الرئيسية</h3>
-                        <button class="btn" onclick="getDashboard()">جلب البيانات</button>
-                        <div id="dashboardResult"></div>
-                    </div>
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content">
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Dashboard Overview</h3>
+                    <p>Get comprehensive dashboard data</p>
+                    <button class="btn" onclick="getDashboard()">Get Dashboard Data</button>
+                    <div id="dashboardResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>الإحصائيات</h3>
-                        <button class="btn" onclick="getStats()">جلب الإحصائيات</button>
-                        <div id="statsResult"></div>
-                    </div>
+                <div class="card">
+                    <h3>Statistics</h3>
+                    <p>View system statistics</p>
+                    <button class="btn" onclick="getStats()">Get Statistics</button>
+                    <div id="statsResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>النشاطات الأخيرة</h3>
-                        <button class="btn" onclick="getRecentActivity()">جلب النشاطات</button>
-                        <div id="activityResult"></div>
-                    </div>
+                <div class="card">
+                    <h3>Recent Activity</h3>
+                    <p>View recent system activity</p>
+                    <button class="btn" onclick="getRecentActivity()">Get Recent Activity</button>
+                    <div id="activityResult"></div>
                 </div>
             </div>
+        </div>
 
-            <div id="admin" class="tab-content">
-                <div class="grid">
-                    <div class="card">
-                        <h3>إدارة المستخدمين</h3>
-                        <button class="btn" onclick="getAllUsers()">جلب جميع المستخدمين</button>
-                        <button class="btn" onclick="getSystemStats()">إحصائيات النظام</button>
-                        <div id="adminResult"></div>
-                    </div>
+        <!-- Admin Tab -->
+        <div id="admin" class="tab-content">
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>User Management</h3>
+                    <p>Manage system users and clients</p>
+                    <button class="btn" onclick="getAllUsers()">Get All Users</button>
+                    <button class="btn" onclick="getSystemStats()">System Statistics</button>
+                    <div id="adminResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>إدارة الخدمات</h3>
-                        <button class="btn" onclick="getAllServices()">جلب جميع الخدمات</button>
-                        <div id="servicesResult"></div>
-                    </div>
+                <div class="card">
+                    <h3>Service Management</h3>
+                    <p>Manage available services</p>
+                    <button class="btn" onclick="getAllServices()">Get All Services</button>
+                    <div id="servicesResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>إدارة الطلبات</h3>
-                        <button class="btn" onclick="getContactRequests()">جلب طلبات التواصل</button>
-                        <div id="requestsResult"></div>
-                    </div>
+                <div class="card">
+                    <h3>Request Management</h3>
+                    <p>Manage contact requests</p>
+                    <button class="btn" onclick="getContactRequests()">Get Contact Requests</button>
+                    <div id="requestsResult"></div>
                 </div>
             </div>
+        </div>
 
-            <div id="public" class="tab-content">
-                <div class="grid">
-                    <div class="card">
-                        <h3>الخدمات</h3>
-                        <button class="btn" onclick="getServices()">جلب الخدمات</button>
-                        <div id="publicServicesResult"></div>
-                    </div>
+        <!-- Public Services Tab -->
+        <div id="public" class="tab-content">
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Services</h3>
+                    <p>View available services</p>
+                    <button class="btn" onclick="getServices()">Get Services</button>
+                    <div id="publicServicesResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>البورتفوليو</h3>
-                        <button class="btn" onclick="getPortfolio()">جلب البورتفوليو</button>
-                        <div id="portfolioResult"></div>
-                    </div>
+                <div class="card">
+                    <h3>Portfolio</h3>
+                    <p>View portfolio items</p>
+                    <button class="btn" onclick="getPortfolio()">Get Portfolio</button>
+                    <div id="portfolioResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>الأخبار</h3>
-                        <button class="btn" onclick="getNews()">جلب الأخبار</button>
-                        <div id="newsResult"></div>
-                    </div>
+                <div class="card">
+                    <h3>News</h3>
+                    <p>View latest news</p>
+                    <button class="btn" onclick="getNews()">Get News</button>
+                    <div id="newsResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>طلب تواصل</h3>
-                        <div class="form-group">
-                            <label>الاسم</label>
-                            <input type="text" id="contactName" placeholder="أدخل الاسم">
-                        </div>
-                        <div class="form-group">
-                            <label>البريد الإلكتروني</label>
-                            <input type="email" id="contactEmail" placeholder="أدخل البريد الإلكتروني">
-                        </div>
-                        <div class="form-group">
-                            <label>رقم الهاتف</label>
-                            <input type="tel" id="contactPhone" placeholder="أدخل رقم الهاتف">
-                        </div>
-                        <div class="form-group">
-                            <label>الرسالة</label>
-                            <textarea id="contactMessage" rows="4" placeholder="أدخل رسالتك"></textarea>
-                        </div>
-                        <button class="btn" onclick="submitContact()">إرسال</button>
-                        <div id="contactResult"></div>
+                <div class="card">
+                    <h3>Contact Request</h3>
+                    <p>Submit a contact request</p>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="contactName" placeholder="Enter your name">
                     </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="contactEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="contactPhone" placeholder="Enter your phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contactMessage" rows="4" placeholder="Enter your message"></textarea>
+                    </div>
+                    <button class="btn" onclick="submitContact()">Send Request</button>
+                    <div id="contactResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>حجز اجتماع</h3>
-                        <div class="form-group">
-                            <label>عنوان الاجتماع</label>
-                            <input type="text" id="meetingTitle" placeholder="أدخل عنوان الاجتماع">
-                        </div>
-                        <div class="form-group">
-                            <label>التاريخ</label>
-                            <input type="date" id="meetingDate">
-                        </div>
-                        <div class="form-group">
-                            <label>الوقت</label>
-                            <input type="time" id="meetingTime">
-                        </div>
-                        <div class="form-group">
-                            <label>المدة (دقائق)</label>
-                            <input type="number" id="meetingDuration" placeholder="30">
-                        </div>
-                        <div class="form-group">
-                            <label>الوصف</label>
-                            <textarea id="meetingDescription" rows="3" placeholder="أدخل وصف الاجتماع"></textarea>
-                        </div>
-                        <button class="btn" onclick="bookMeeting()">حجز</button>
-                        <div id="meetingResult"></div>
+                <div class="card">
+                    <h3>Schedule Meeting</h3>
+                    <p>Book a meeting appointment</p>
+                    <div class="form-group">
+                        <label>Meeting Title</label>
+                        <input type="text" id="meetingTitle" placeholder="Enter meeting title">
                     </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="meetingDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" id="meetingTime">
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (minutes)</label>
+                        <input type="number" id="meetingDuration" placeholder="30">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="meetingDescription" rows="3" placeholder="Enter meeting description"></textarea>
+                    </div>
+                    <button class="btn" onclick="bookMeeting()">Schedule Meeting</button>
+                    <div id="meetingResult"></div>
+                </div>
 
-                    <div class="card">
-                        <h3>إرسال Brief</h3>
-                        <div class="form-group">
-                            <label>عنوان المشروع</label>
-                            <input type="text" id="briefTitle" placeholder="أدخل عنوان المشروع">
-                        </div>
-                        <div class="form-group">
-                            <label>وصف المشروع</label>
-                            <textarea id="briefDescription" rows="3" placeholder="أدخل وصف المشروع"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>الميزانية</label>
-                            <input type="text" id="briefBudget" placeholder="أدخل الميزانية">
-                        </div>
-                        <div class="form-group">
-                            <label>الجدول الزمني</label>
-                            <input type="text" id="briefTimeline" placeholder="أدخل الجدول الزمني">
-                        </div>
-                        <div class="form-group">
-                            <label>المتطلبات</label>
-                            <textarea id="briefRequirements" rows="3" placeholder="أدخل متطلبات المشروع"></textarea>
-                        </div>
-                        <button class="btn" onclick="submitBrief()">إرسال</button>
-                        <div id="briefResult"></div>
+                <div class="card">
+                    <h3>Submit Brief</h3>
+                    <p>Submit a project brief</p>
+                    <div class="form-group">
+                        <label>Project Title</label>
+                        <input type="text" id="briefTitle" placeholder="Enter project title">
                     </div>
+                    <div class="form-group">
+                        <label>Project Description</label>
+                        <textarea id="briefDescription" rows="3" placeholder="Enter project description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Budget</label>
+                        <input type="text" id="briefBudget" placeholder="Enter budget">
+                    </div>
+                    <div class="form-group">
+                        <label>Timeline</label>
+                        <input type="text" id="briefTimeline" placeholder="Enter timeline">
+                    </div>
+                    <div class="form-group">
+                        <label>Requirements</label>
+                        <textarea id="briefRequirements" rows="3" placeholder="Enter project requirements"></textarea>
+                    </div>
+                    <button class="btn" onclick="submitBrief()">Submit Brief</button>
+                    <div id="briefResult"></div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>CREVEL</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">X</a>
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">📷</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>📞 010-101-0101</p>
+                <p>📧 mai.com</p>
+                <p>🌐 www.yourwebsite.com</p>
+                <p>📍 Street Address, Zip code</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#">Home</a>
+                <a href="#">Portfolio</a>
+                <a href="#">Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const API_BASE = 'https://mahmoudapi-production.up.railway.app';
         let currentToken = localStorage.getItem('token');
 
         function showTab(tabName) {
-            // إخفاء جميع المحتويات
+            // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             
-            // إزالة active من جميع التبويبات
+            // Remove active from all tabs
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // إظهار المحتوى المطلوب
+            // Show requested content
             document.getElementById(tabName).classList.add('active');
             
-            // تفعيل التبويب المطلوب
+            // Activate requested tab
             event.target.classList.add('active');
         }
 
@@ -485,7 +705,7 @@
         function displayResult(elementId, data, isSuccess = true) {
             const element = document.getElementById(elementId);
             const status = isSuccess ? 'success' : 'error';
-            const statusText = isSuccess ? 'نجح' : 'فشل';
+            const statusText = isSuccess ? 'SUCCESS' : 'ERROR';
             
             let displayData = data;
             if (typeof data === 'string') {
@@ -573,7 +793,6 @@
 
         async function loginAsAdmin() {
             try {
-                // محاولة تسجيل دخول كـ admin
                 const result = await apiCall('/auth/login', {
                     method: 'POST',
                     body: JSON.stringify({ 
@@ -588,14 +807,13 @@
                     document.getElementById('tokenDisplay').style.display = 'block';
                     document.getElementById('currentToken').textContent = currentToken.substring(0, 50) + '...';
                     document.getElementById('autoLoginNotice').style.display = 'none';
-                    console.log('تم تسجيل الدخول بنجاح');
+                    console.log('Login successful');
                 } else {
-                    console.log('فشل في تسجيل الدخول، محاولة إنشاء admin');
-                    // إذا فشل، جرب إنشاء admin أولاً
+                    console.log('Login failed, trying to create admin');
                     await createAdminUser();
                 }
             } catch (error) {
-                console.error('خطأ في تسجيل الدخول:', error);
+                console.error('Login error:', error);
             }
         }
 
@@ -611,7 +829,6 @@
             });
 
             if (adminResult.success) {
-                // حاول تسجيل الدخول مرة أخرى
                 await loginAsAdmin();
             }
         }
@@ -718,29 +935,29 @@
             displayResult('briefResult', result.data, result.success);
         }
 
-        // تسجيل دخول تلقائي عند تحميل الصفحة
+        // Auto login on page load
         window.addEventListener('load', async () => {
-            console.log('تحميل الصفحة...');
+            console.log('Loading page...');
             
-            // اختبار الاتصال بالـ API أولاً
+            // Test API connection first
             try {
                 const healthCheck = await apiCall('/health');
-                console.log('اختبار الاتصال:', healthCheck);
+                console.log('Connection test:', healthCheck);
                 
                 if (!healthCheck.success) {
-                    console.error('فشل في الاتصال بالـ API');
+                    console.error('Failed to connect to API');
                     return;
                 }
             } catch (error) {
-                console.error('خطأ في اختبار الاتصال:', error);
+                console.error('Connection test error:', error);
                 return;
             }
             
             if (!currentToken) {
-                console.log('لا يوجد token، محاولة تسجيل دخول تلقائي');
+                console.log('No token, attempting auto login');
                 await loginAsAdmin();
             } else {
-                console.log('Token موجود، تفعيل العرض');
+                console.log('Token exists, enabling display');
                 document.getElementById('tokenDisplay').style.display = 'block';
                 document.getElementById('currentToken').textContent = currentToken.substring(0, 50) + '...';
                 document.getElementById('autoLoginNotice').style.display = 'none';
