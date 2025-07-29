@@ -1,0 +1,701 @@
+{
+	"info": {
+		"_postman_id": "the-flow-api-collection",
+		"name": "The Flow API",
+		"description": "مجموعة شاملة من APIs لنظام إدارة المحتوى والطلبات",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "🔐 Authentication",
+			"item": [
+				{
+					"name": "تسجيل مستخدم جديد",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"أحمد محمد\",\n  \"email\": \"ahmed@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"user\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					}
+				},
+				{
+					"name": "تسجيل الدخول",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// حفظ التوكن تلقائياً بعد تسجيل الدخول",
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.success && jsonData.data.token) {",
+									"        pm.environment.set(\"token\", jsonData.data.token);",
+									"    }",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"ahmed@example.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					}
+				},
+				{
+					"name": "الملف الشخصي",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					}
+				},
+				{
+					"name": "تسجيل الخروج",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📊 Dashboard",
+			"item": [
+				{
+					"name": "إحصائيات لوحة التحكم",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"stats"
+							]
+						}
+					}
+				},
+				{
+					"name": "المشاريع الحالية",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects"
+							]
+						}
+					}
+				},
+				{
+					"name": "إنشاء مشروع جديد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"تصميم موقع شركة التقنية\",\n  \"description\": \"موقع احترافي لشركة تقنية متخصصة في تطوير البرمجيات\",\n  \"client\": \"شركة التقنية المحدودة\",\n  \"budget\": 25000,\n  \"startDate\": \"2024-01-15\",\n  \"endDate\": \"2024-03-15\",\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"projects"
+							]
+						}
+					}
+				},
+				{
+					"name": "الطلبات الجديدة",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/requests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"requests"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📝 Content Management",
+			"item": [
+				{
+					"name": "عرض جميع الخدمات",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/content/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"content",
+								"services"
+							]
+						}
+					}
+				},
+				{
+					"name": "إضافة خدمة جديدة",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"تصميم تطبيق موبايل\",\n  \"description\": \"تصميم تطبيقات iOS و Android احترافية\",\n  \"price\": 15000,\n  \"category\": \"mobile-app\",\n  \"image\": \"https://example.com/mobile-app.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/content/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"content",
+								"services"
+							]
+						}
+					}
+				},
+				{
+					"name": "عرض جميع المشاريع",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/content/portfolio",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"content",
+								"portfolio"
+							]
+						}
+					}
+				},
+				{
+					"name": "إضافة مشروع للمعرض",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"موقع شركة التقنية\",\n  \"description\": \"موقع احترافي لشركة تقنية متخصصة في تطوير البرمجيات\",\n  \"client\": \"شركة التقنية المحدودة\",\n  \"category\": \"web-design\",\n  \"image\": \"https://example.com/tech-company-website.jpg\",\n  \"url\": \"https://tech-company.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/content/portfolio",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"content",
+								"portfolio"
+							]
+						}
+					}
+				},
+				{
+					"name": "عرض جميع الأخبار",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/content/news",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"content",
+								"news"
+							]
+						}
+					}
+				},
+				{
+					"name": "إضافة خبر جديد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"إطلاق خدمات تصميم التطبيقات الجديدة\",\n  \"content\": \"نفخر بإعلان إطلاق خدمات تصميم تطبيقات الموبايل المتقدمة...\",\n  \"image\": \"https://example.com/mobile-app-news.jpg\",\n  \"category\": \"technology\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/content/news",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"content",
+								"news"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📋 Requests Management",
+			"item": [
+				{
+					"name": "إنشاء طلب جديد",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"سارة أحمد\",\n  \"email\": \"sara@example.com\",\n  \"phone\": \"+966501234567\",\n  \"service\": \"تصميم موقع\",\n  \"message\": \"أريد موقع احترافي لشركتي الناشئة في مجال التجارة الإلكترونية\",\n  \"budget\": 15000,\n  \"timeline\": \"شهرين\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/requests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"requests"
+							]
+						}
+					}
+				},
+				{
+					"name": "عرض جميع الطلبات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/requests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"requests"
+							]
+						}
+					}
+				},
+				{
+					"name": "تحديث حالة طلب",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"in-progress\",\n  \"notes\": \"تم البدء في تصميم الموقع. سيتم إرسال النموذج الأول خلال أسبوع\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/requests/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"requests",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "request-id-here"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "👥 Clients Management",
+			"item": [
+				{
+					"name": "عرض جميع العملاء",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/clients",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					}
+				},
+				{
+					"name": "إضافة عميل جديد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"محمد علي\",\n  \"email\": \"mohamed@company.com\",\n  \"phone\": \"+966501234568\",\n  \"company\": \"شركة النجاح للتجارة\",\n  \"address\": \"الرياض، المملكة العربية السعودية\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/clients",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🔔 Notifications",
+			"item": [
+				{
+					"name": "عرض جميع الإشعارات",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					}
+				},
+				{
+					"name": "إنشاء إشعار جديد",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"طلب جديد\",\n  \"message\": \"تم استلام طلب جديد من سارة أحمد\",\n  \"type\": \"info\",\n  \"userId\": \"user-id\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+} 

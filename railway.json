@@ -6,7 +6,7 @@
   },
   "deploy": {
     "startCommand": "npm start",
-    "healthcheckPath": "/",
+    "healthcheckPath": "/health",
     "healthcheckTimeout": 30,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
@@ -16,13 +16,17 @@
     "production": {
       "variables": {
         "NODE_ENV": "production",
-        "PORT": "5000"
+        "PORT": "5000",
+        "JWT_SECRET": "your-production-jwt-secret-key-here",
+        "ALLOWED_ORIGINS": "https://your-frontend-domain.com,https://your-admin-domain.com"
       }
     },
     "development": {
       "variables": {
         "NODE_ENV": "development",
-        "PORT": "5000"
+        "PORT": "5000",
+        "JWT_SECRET": "your-development-jwt-secret-key-here",
+        "ALLOWED_ORIGINS": "http://localhost:3000,http://localhost:5000"
       }
     }
   }

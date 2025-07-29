@@ -1,284 +1,0 @@
-=======================================
-   دليل Railway APIs - النتيجة النهائية
-=======================================
-
-## ✅ تم إنشاء جميع ملفات الـ APIs الخاصة بـ Railway!
-
-### 📁 الملفات الجديدة:
-
-#### 📋 ملفات التوثيق:
-1. **RAILWAY_APIS_COMPLETE.txt** - قائمة شاملة مفصلة
-2. **RAILWAY_APIS_QUICK_REFERENCE.txt** - مرجع سريع
-3. **RAILWAY_APIS_GUIDE.txt** - هذا الدليل
-
-#### 🧪 ملفات الاختبار:
-1. **test-railway-apis.ps1** - script اختبار شامل
-
-## 🌐 الـ Base URL
-https://mahmoudapi-production.up.railway.app
-
-## 📊 إحصائيات الـ APIs
-
-### إجمالي الـ APIs: 18 API
-- **Authentication APIs**: 2 APIs
-- **Content APIs**: 3 APIs
-- **Request APIs**: 4 APIs
-- **Dashboard & Admin APIs**: 4 APIs
-- **Clients Management APIs**: 3 APIs
-- **System APIs**: 2 APIs
-
-### تصنيف الـ APIs:
-- **APIs عامة**: 11 APIs (لا تحتاج مصادقة)
-- **APIs محمية**: 7 APIs (تحتاج JWT Token)
-
-## 🔑 المصادقة
-
-### JWT Token
-```
-Authorization: Bearer JWT_TOKEN
-```
-
-### الحصول على Token
-```bash
-curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "admin123"}'
-```
-
-## 📋 قائمة الـ APIs
-
-### 🔐 Authentication APIs
-1. `POST /auth/signup` - تسجيل مستخدم جديد
-2. `POST /auth/login` - تسجيل الدخول
-
-### 📄 Content APIs
-3. `GET /services` - جلب جميع الخدمات
-4. `GET /portfolio` - جلب البورتفوليو
-5. `GET /news` - جلب الأخبار
-
-### 📝 Request APIs
-6. `POST /contact-requests` - إرسال طلب تواصل
-7. `GET /meetings/slots` - جلب أوقات الاجتماعات المتاحة
-8. `POST /meetings` - حجز اجتماع
-9. `POST /briefs` - إرسال Brief جديد
-
-### 🎛️ Dashboard & Admin APIs
-10. `GET /dashboard` - جلب بيانات لوحة التحكم
-11. `POST /requests/contact` - بدء طلب تواصل (Admin)
-12. `POST /requests/meeting` - بدء طلب اجتماع (Admin)
-13. `POST /requests/brief` - بدء طلب Brief (Admin)
-
-### 👥 Clients Management APIs
-14. `POST /clients` - إضافة عميل جديد
-15. `GET /clients` - جلب جميع العملاء
-16. `GET /clients/:id` - جلب عميل محدد
-
-### 🔧 System APIs
-17. `GET /health` - فحص صحة النظام
-18. `GET /api` - معلومات الـ API
-
-## 🧪 اختبار الـ APIs
-
-### الطريقة الأولى (Script PowerShell):
-```powershell
-.\test-railway-apis.ps1
-```
-
-### الطريقة الثانية (PowerShell مباشر):
-```powershell
-# اختبار صحة النظام
-Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/health" -Method GET
-
-# جلب الخدمات
-Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/services" -Method GET
-
-# تسجيل الدخول
-$loginData = @{
-    username = "admin"
-    password = "admin123"
-} | ConvertTo-Json
-
-$response = Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/auth/login" -Method POST -Body $loginData -ContentType "application/json"
-$token = $response.data.token
-
-# اختبار لوحة التحكم
-$headers = @{ "Authorization" = "Bearer $token" }
-Invoke-RestMethod -Uri "https://mahmoudapi-production.up.railway.app/dashboard" -Method GET -Headers $headers
-```
-
-### الطريقة الثالثة (curl):
-```bash
-# اختبار صحة النظام
-curl -X GET https://mahmoudapi-production.up.railway.app/health
-
-# جلب الخدمات
-curl -X GET https://mahmoudapi-production.up.railway.app/services
-
-# تسجيل الدخول
-curl -X POST https://mahmoudapi-production.up.railway.app/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "admin123"}'
-
-# لوحة التحكم (مع Token)
-curl -X GET https://mahmoudapi-production.up.railway.app/dashboard \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-```
-
-### الطريقة الرابعة (موقع الاختبار التفاعلي):
-```
-https://mahmoudapi-production.up.railway.app
-```
-
-## 📊 Status Codes
-
-### النجاح:
-- `200` - OK
-- `201` - Created
-
-### أخطاء العميل:
-- `400` - Bad Request
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Not Found
-- `422` - Validation Error
-
-### أخطاء الخادم:
-- `500` - Internal Server Error
-- `503` - Service Unavailable
-
-## 🎯 أمثلة سريعة
-
-### اختبار صحة النظام:
-```bash
-curl -X GET https://mahmoudapi-production.up.railway.app/health
-```
-
-### جلب الخدمات:
-```bash
-curl -X GET https://mahmoudapi-production.up.railway.app/services
-```
-
-### إرسال طلب تواصل:
-```bash
-curl -X POST https://mahmoudapi-production.up.railway.app/contact-requests \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "أحمد محمد",
-    "email": "ahmed@example.com",
-    "phone": "+201234567890",
-    "message": "أريد استشارة"
-  }'
-```
-
-### حجز اجتماع:
-```bash
-curl -X POST https://mahmoudapi-production.up.railway.app/meetings \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "أحمد محمد",
-    "email": "ahmed@example.com",
-    "phone": "+201234567890",
-    "date": "2024-01-25",
-    "time": "14:00",
-    "purpose": "مناقشة مشروع جديد"
-  }'
-```
-
-### إرسال Brief:
-```bash
-curl -X POST https://mahmoudapi-production.up.railway.app/briefs \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "أحمد محمد",
-    "email": "ahmed@example.com",
-    "phone": "+201234567890",
-    "projectType": "website",
-    "budget": "5000",
-    "timeline": "3 months",
-    "description": "موقع تجاري متكامل"
-  }'
-```
-
-## 🚀 الاستخدام المتقدم
-
-### تسجيل الدخول والوصول للوحة التحكم:
-```bash
-# تسجيل الدخول والحصول على Token
-TOKEN=$(curl -s -X POST https://mahmoudapi-production.up.railway.app/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "admin123"}' | jq -r '.data.token')
-
-# الوصول للوحة التحكم
-curl -H "Authorization: Bearer $TOKEN" https://mahmoudapi-production.up.railway.app/dashboard
-
-# جلب العملاء
-curl -H "Authorization: Bearer $TOKEN" https://mahmoudapi-production.up.railway.app/clients
-```
-
-### إضافة عميل جديد:
-```bash
-curl -X POST https://mahmoudapi-production.up.railway.app/clients \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "شركة ABC",
-    "email": "info@abc.com",
-    "phone": "+201234567890",
-    "address": "القاهرة، مصر",
-    "notes": "ملاحظات حول العميل"
-  }'
-```
-
-## 📱 موقع الاختبار التفاعلي
-https://mahmoudapi-production.up.railway.app
-
-## 🎉 النتيجة النهائية
-
-### ✅ Railway يعمل بشكل صحيح:
-- جميع الـ APIs متاحة
-- المصادقة تعمل بشكل صحيح
-- النشر التلقائي يعمل
-- التوثيق شامل
-
-### ✅ الملفات جاهزة:
-- `RAILWAY_APIS_COMPLETE.txt` - قائمة شاملة مفصلة
-- `RAILWAY_APIS_QUICK_REFERENCE.txt` - مرجع سريع
-- `test-railway-apis.ps1` - script اختبار شامل
-- `RAILWAY_APIS_GUIDE.txt` - هذا الدليل
-
-### ✅ جاهز للاستخدام:
-- جميع الـ APIs تعمل
-- Railway منشور تلقائياً
-- التطبيق متاح للجميع
-- التوثيق شامل ومفصل
-
-## 📁 الملفات المتاحة
-
-### ملفات التوثيق:
-- `RAILWAY_APIS_COMPLETE.txt` - قائمة شاملة مفصلة
-- `RAILWAY_APIS_QUICK_REFERENCE.txt` - مرجع سريع
-- `RAILWAY_APIS_GUIDE.txt` - هذا الدليل
-
-### ملفات الاختبار:
-- `test-railway-apis.ps1` - script اختبار شامل
-
-## 🚀 الخطوات التالية
-
-### 1. اختبار الـ APIs:
-```powershell
-.\test-railway-apis.ps1
-```
-
-### 2. استخدام موقع الاختبار:
-```
-https://mahmoudapi-production.up.railway.app
-```
-
-### 3. رفع التغييرات:
-```bash
-git add .
-git commit -m "feat: إضافة Railway APIs documentation"
-git push origin main
-```
-
-======================================= 

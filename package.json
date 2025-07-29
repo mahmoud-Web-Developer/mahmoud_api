@@ -2,9 +2,9 @@
   "name": "the-flow-api",
   "version": "1.0.0",
   "description": "A comprehensive API for The Flow project with authentication, dashboard, and testing interface",
-  "main": "src/server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node app.js",
     "dev": "nodemon src/server.js",
     "test": "jest",
     "test:watch": "jest --watch",

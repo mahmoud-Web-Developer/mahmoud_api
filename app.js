@@ -91,7 +91,7 @@ const apiRoutes = [
 
 // Register all API routes
 apiRoutes.forEach(({ path, router }) => {
-  app.use(path, router);
+  app.use(`/api${path}`, router);
 });
 
 // 404 handler
