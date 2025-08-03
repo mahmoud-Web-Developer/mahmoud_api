@@ -32,10 +32,7 @@ exports.getAllClients = (req, res) => {
     });
   } catch (error) {
     console.error('Get all clients error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -46,10 +43,7 @@ exports.getClientById = (req, res) => {
     const client = clients.find(c => c.id === clientId);
     
     if (!client) {
-      return res.status(404).json({
-        success: false,
-        message: 'العميل غير موجود'
-      });
+      return res.status(404).json({ error: 'العميل غير موجود' });
     }
     
     res.json({
@@ -58,10 +52,7 @@ exports.getClientById = (req, res) => {
     });
   } catch (error) {
     console.error('Get client by ID error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -82,26 +73,17 @@ exports.createClient = (req, res) => {
     
     // التحقق من البيانات المطلوبة
     if (!companyName || !contactPerson || !mobileNumber) {
-      return res.status(400).json({
-        success: false,
-        message: 'اسم الشركة والشخص المسؤول ورقم الهاتف مطلوبة'
-      });
+      return res.status(400).json({ error: 'اسم الشركة والشخص المسؤول ورقم الهاتف مطلوبة' });
     }
     
     // التحقق من صحة البريد الإلكتروني
     if (email && !isValidEmail(email)) {
-      return res.status(400).json({
-        success: false,
-        message: 'البريد الإلكتروني غير صحيح'
-      });
+      return res.status(400).json({ error: 'البريد الإلكتروني غير صحيح' });
     }
     
     // التحقق من صحة رقم الهاتف
     if (!isValidPhoneNumber(mobileNumber)) {
-      return res.status(400).json({
-        success: false,
-        message: 'رقم الهاتف غير صحيح'
-      });
+      return res.status(400).json({ error: 'رقم الهاتف غير صحيح' });
     }
     
     // إنشاء العميل الجديد
@@ -124,17 +106,10 @@ exports.createClient = (req, res) => {
     // إضافة العميل إلى المصفوفة
     clients.push(newClient);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إنشاء العميل بنجاح',
-      data: newClient
-    });
+    res.status(201).json(newClient);
   } catch (error) {
     console.error('Create client error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -145,10 +120,7 @@ exports.updateClient = (req, res) => {
     const clientIndex = clients.findIndex(c => c.id === clientId);
     
     if (clientIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        message: 'العميل غير موجود'
-      });
+      return res.status(404).json({ error: 'العميل غير موجود' });
     }
     
     const {
@@ -165,26 +137,17 @@ exports.updateClient = (req, res) => {
     
     // التحقق من البيانات المطلوبة
     if (!companyName || !contactPerson || !mobileNumber) {
-      return res.status(400).json({
-        success: false,
-        message: 'اسم الشركة والشخص المسؤول ورقم الهاتف مطلوبة'
-      });
+      return res.status(400).json({ error: 'اسم الشركة والشخص المسؤول ورقم الهاتف مطلوبة' });
     }
     
     // التحقق من صحة البريد الإلكتروني
     if (email && !isValidEmail(email)) {
-      return res.status(400).json({
-        success: false,
-        message: 'البريد الإلكتروني غير صحيح'
-      });
+      return res.status(400).json({ error: 'البريد الإلكتروني غير صحيح' });
     }
     
     // التحقق من صحة رقم الهاتف
     if (!isValidPhoneNumber(mobileNumber)) {
-      return res.status(400).json({
-        success: false,
-        message: 'رقم الهاتف غير صحيح'
-      });
+      return res.status(400).json({ error: 'رقم الهاتف غير صحيح' });
     }
     
     // تحديث بيانات العميل
@@ -204,17 +167,10 @@ exports.updateClient = (req, res) => {
     
     clients[clientIndex] = updatedClient;
     
-    res.json({
-      success: true,
-      message: 'تم تحديث العميل بنجاح',
-      data: updatedClient
-    });
+    res.status(200).json(updatedClient);
   } catch (error) {
     console.error('Update client error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في تحديث العميل' });
   }
 };
 
@@ -225,10 +181,7 @@ exports.deleteClient = (req, res) => {
     const clientIndex = clients.findIndex(c => c.id === clientId);
     
     if (clientIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        message: 'العميل غير موجود'
-      });
+      return res.status(404).json({ error: 'العميل غير موجود' });
     }
     
     const deletedClient = clients.splice(clientIndex, 1)[0];
@@ -240,10 +193,7 @@ exports.deleteClient = (req, res) => {
     });
   } catch (error) {
     console.error('Delete client error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -254,19 +204,13 @@ exports.updateClientStatus = (req, res) => {
     const { isActive } = req.body;
     
     if (isActive === undefined) {
-      return res.status(400).json({
-        success: false,
-        message: 'حالة العميل مطلوبة'
-      });
+      return res.status(400).json({ error: 'حالة العميل مطلوبة' });
     }
     
     const clientIndex = clients.findIndex(c => c.id === clientId);
     
     if (clientIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        message: 'العميل غير موجود'
-      });
+      return res.status(404).json({ error: 'العميل غير موجود' });
     }
     
     clients[clientIndex].isActive = isActive;
@@ -279,10 +223,7 @@ exports.updateClientStatus = (req, res) => {
     });
   } catch (error) {
     console.error('Update client status error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -336,10 +277,7 @@ exports.searchClients = (req, res) => {
     });
   } catch (error) {
     console.error('Search clients error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 

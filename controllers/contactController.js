@@ -7,11 +7,7 @@ exports.createContactRequest = (req, res) => {
     const validation = validateContactRequestData(req.body);
     
     if (!validation.isValid) {
-      return res.status(400).json({
-        success: false,
-        message: 'بيانات غير صحيحة',
-        errors: validation.errors
-      });
+      return res.status(400).json({ errors: validation.errors });
     }
     
     // إنشاء طلب جديد وإضافته للمصفوفة
@@ -24,34 +20,20 @@ exports.createContactRequest = (req, res) => {
     
     contactRequests.push(newRequest);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم استلام طلبك بنجاح. سنتواصل معك قريباً.',
-      data: newRequest
-    });
+    res.status(201).json(newRequest);
   } catch (error) {
     console.error('Create contact request error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إرسال الطلب'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إرسال الطلب' });
   }
 };
 
 // الحصول على جميع طلبات التواصل
 exports.getContactRequests = (req, res) => {
   try {
-    res.json({
-      success: true,
-      data: contactRequests,
-      count: contactRequests.length
-    });
+    res.json(contactRequests);
   } catch (error) {
     console.error('Get contact requests error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب طلبات التواصل'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب طلبات التواصل' });
   }
 };
 

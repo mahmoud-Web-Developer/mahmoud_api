@@ -71,16 +71,10 @@ exports.getDashboardStats = (req, res) => {
       }
     };
 
-    res.json({
-      success: true,
-      data: stats
-    });
+    res.json(stats);
   } catch (error) {
     console.error('Get dashboard stats error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب إحصائيات لوحة التحكم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب إحصائيات لوحة التحكم' });
   }
 };
 
@@ -115,10 +109,7 @@ exports.getCurrentProjects = (req, res) => {
     });
   } catch (error) {
     console.error('Get current projects error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب المشاريع الحالية'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب المشاريع الحالية' });
   }
 };
 
@@ -147,21 +138,10 @@ exports.getAllUsers = (req, res) => {
     const endIndex = startIndex + parseInt(limit);
     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
     
-    res.json({
-      success: true,
-      data: paginatedUsers,
-      count: paginatedUsers.length,
-      total: filteredUsers.length,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(filteredUsers.length / limit)
-    });
+    res.json(paginatedUsers);
   } catch (error) {
     console.error('Get all users error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب المستخدمين'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب المستخدمين' });
   }
 };
 
@@ -208,17 +188,10 @@ exports.createUser = (req, res) => {
     
     users.push(newUser);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إنشاء المستخدم بنجاح',
-      data: newUser
-    });
+    res.status(201).json(newUser);
   } catch (error) {
     console.error('Create user error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إنشاء المستخدم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إنشاء المستخدم' });
   }
 };
 
@@ -253,17 +226,10 @@ exports.updateUser = (req, res) => {
     
     users[userIndex].updatedAt = new Date();
     
-    res.json({
-      success: true,
-      message: 'تم تحديث المستخدم بنجاح',
-      data: users[userIndex]
-    });
+    res.json(users[userIndex]);
   } catch (error) {
     console.error('Update user error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في تحديث المستخدم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في تحديث المستخدم' });
   }
 };
 
@@ -289,17 +255,10 @@ exports.deleteUser = (req, res) => {
     
     const deletedUser = users.splice(userIndex, 1)[0];
     
-    res.json({
-      success: true,
-      message: 'تم حذف المستخدم بنجاح',
-      data: deletedUser
-    });
+    res.json(deletedUser);
   } catch (error) {
     console.error('Delete user error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في حذف المستخدم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في حذف المستخدم' });
   }
 };
 
@@ -361,17 +320,10 @@ exports.createProject = (req, res) => {
     
     projects.push(newProject);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إنشاء المشروع بنجاح',
-      data: newProject
-    });
+    res.status(201).json(newProject);
   } catch (error) {
     console.error('Create project error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إنشاء المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إنشاء المشروع' });
   }
 };
 
@@ -421,17 +373,10 @@ exports.updateProject = (req, res) => {
     
     projects[projectIndex].updatedAt = new Date();
     
-    res.json({
-      success: true,
-      message: 'تم تحديث المشروع بنجاح',
-      data: projects[projectIndex]
-    });
+    res.json(projects[projectIndex]);
   } catch (error) {
     console.error('Update project error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في تحديث المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في تحديث المشروع' });
   }
 };
 
@@ -449,17 +394,10 @@ exports.deleteProject = (req, res) => {
     
     const deletedProject = projects.splice(projectIndex, 1)[0];
     
-    res.json({
-      success: true,
-      message: 'تم حذف المشروع بنجاح',
-      data: deletedProject
-    });
+    res.json(deletedProject);
   } catch (error) {
     console.error('Delete project error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في حذف المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في حذف المشروع' });
   }
 };
 
@@ -514,17 +452,10 @@ exports.createRequest = (req, res) => {
     
     requests.push(newRequest);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إنشاء الطلب بنجاح',
-      data: newRequest
-    });
+    res.status(201).json(newRequest);
   } catch (error) {
     console.error('Create request error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إنشاء الطلب'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إنشاء الطلب' });
   }
 };
 
@@ -552,21 +483,10 @@ exports.getAllRequests = (req, res) => {
     const endIndex = startIndex + parseInt(limit);
     const paginatedRequests = filteredRequests.slice(startIndex, endIndex);
     
-    res.json({
-      success: true,
-      data: paginatedRequests,
-      count: paginatedRequests.length,
-      total: filteredRequests.length,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(filteredRequests.length / limit)
-    });
+    res.json(requests);
   } catch (error) {
     console.error('Get all requests error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب الطلبات'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب الطلبات' });
   }
 };
 
@@ -623,17 +543,10 @@ exports.getRecentActivity = (req, res) => {
     // تطبيق الحد
     const limitedActivities = allActivities.slice(0, parseInt(limit));
     
-    res.json({
-      success: true,
-      data: limitedActivities,
-      count: limitedActivities.length
-    });
+    res.json(limitedActivities);
   } catch (error) {
     console.error('Get recent activity error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب النشاطات الأخيرة'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب النشاطات الأخيرة' });
   }
 };
 
@@ -656,16 +569,10 @@ exports.getDashboardSettings = (req, res) => {
       }
     };
     
-    res.json({
-      success: true,
-      data: settings
-    });
+    res.json(settings);
   } catch (error) {
     console.error('Get dashboard settings error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب إعدادات لوحة التحكم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب إعدادات لوحة التحكم' });
   }
 };
 
@@ -700,16 +607,9 @@ exports.updateDashboardSettings = (req, res) => {
       }
     };
     
-    res.json({
-      success: true,
-      message: 'تم حفظ الإعدادات بنجاح',
-      data: updatedSettings
-    });
+    res.json(updatedSettings);
   } catch (error) {
     console.error('Update dashboard settings error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في تحديث إعدادات لوحة التحكم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في تحديث إعدادات لوحة التحكم' });
   }
 }; 

@@ -71,17 +71,10 @@ exports.createContactRequest = (req, res) => {
     
     requests.push(generalRequest);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إرسال طلب التواصل بنجاح',
-      data: newContactRequest
-    });
+    res.status(201).json(newContactRequest);
   } catch (error) {
     console.error('Create contact request error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إرسال طلب التواصل'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إرسال طلب التواصل' });
   }
 };
 
@@ -104,21 +97,10 @@ exports.getAllContactRequests = (req, res) => {
     const endIndex = startIndex + parseInt(limit);
     const paginatedRequests = filteredRequests.slice(startIndex, endIndex);
     
-    res.json({
-      success: true,
-      data: paginatedRequests,
-      count: paginatedRequests.length,
-      total: filteredRequests.length,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(filteredRequests.length / limit)
-    });
+    res.json(paginatedRequests);
   } catch (error) {
     console.error('Get all contact requests error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب طلبات التواصل'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب طلبات التواصل' });
   }
 };
 
@@ -237,17 +219,10 @@ exports.createMeetingRequest = (req, res) => {
     
     requests.push(generalRequest);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إرسال طلب الاجتماع بنجاح',
-      data: newMeetingRequest
-    });
+    res.status(201).json(newMeetingRequest);
   } catch (error) {
     console.error('Create meeting request error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إرسال طلب الاجتماع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إرسال طلب الاجتماع' });
   }
 };
 
@@ -270,21 +245,10 @@ exports.getAllMeetingRequests = (req, res) => {
     const endIndex = startIndex + parseInt(limit);
     const paginatedMeetings = filteredMeetings.slice(startIndex, endIndex);
     
-    res.json({
-      success: true,
-      data: paginatedMeetings,
-      count: paginatedMeetings.length,
-      total: filteredMeetings.length,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(filteredMeetings.length / limit)
-    });
+    res.json(paginatedMeetings);
   } catch (error) {
     console.error('Get all meeting requests error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب طلبات الاجتماعات'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب طلبات الاجتماعات' });
   }
 };
 
@@ -399,17 +363,10 @@ exports.createBriefRequest = (req, res) => {
     
     requests.push(generalRequest);
     
-    res.status(201).json({
-      success: true,
-      message: 'تم إرسال Brief بنجاح',
-      data: newBrief
-    });
+    res.status(201).json(newBrief);
   } catch (error) {
     console.error('Create brief request error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إرسال Brief'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إرسال Brief' });
   }
 };
 
@@ -432,21 +389,10 @@ exports.getAllBriefRequests = (req, res) => {
     const endIndex = startIndex + parseInt(limit);
     const paginatedBriefs = filteredBriefs.slice(startIndex, endIndex);
     
-    res.json({
-      success: true,
-      data: paginatedBriefs,
-      count: paginatedBriefs.length,
-      total: filteredBriefs.length,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(filteredBriefs.length / limit)
-    });
+    res.json(paginatedBriefs);
   } catch (error) {
     console.error('Get all brief requests error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب Briefs'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب Briefs' });
   }
 };
 
@@ -501,15 +447,9 @@ exports.getRequestsStats = (req, res) => {
       inProgress: requests.filter(r => r.status === 'in-progress').length
     };
     
-    res.json({
-      success: true,
-      data: stats
-    });
+    res.json(stats);
   } catch (error) {
     console.error('Get requests stats error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب إحصائيات الطلبات'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب إحصائيات الطلبات' });
   }
 }; 
