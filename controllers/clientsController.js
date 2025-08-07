@@ -59,56 +59,22 @@ exports.getClientById = (req, res) => {
 // دالة إنشاء عميل جديد
 exports.createClient = (req, res) => {
   try {
-    const {
-      companyName,
-      businessSector,
-      contactPerson,
-      mobileNumber,
-      email,
-      website,
-      socialMediaAccounts,
-      address,
-      notes
-    } = req.body;
-    
-    // التحقق من البيانات المطلوبة
+    const { companyName, contactPerson, mobileNumber } = req.body;
     if (!companyName || !contactPerson || !mobileNumber) {
       return res.status(400).json({ error: 'اسم الشركة والشخص المسؤول ورقم الهاتف مطلوبة' });
     }
-    
-    // التحقق من صحة البريد الإلكتروني
-    if (email && !isValidEmail(email)) {
-      return res.status(400).json({ error: 'البريد الإلكتروني غير صحيح' });
-    }
-    
-    // التحقق من صحة رقم الهاتف
-    if (!isValidPhoneNumber(mobileNumber)) {
-      return res.status(400).json({ error: 'رقم الهاتف غير صحيح' });
-    }
-    
-    // إنشاء العميل الجديد
     const newClient = {
       id: clients.length > 0 ? Math.max(...clients.map(c => c.id)) + 1 : 1,
       companyName: companyName.trim(),
-      businessSector: businessSector || '',
       contactPerson: contactPerson.trim(),
       mobileNumber: mobileNumber.trim(),
-      email: email ? email.trim() : null,
-      website: website ? website.trim() : null,
-      socialMediaAccounts: socialMediaAccounts ? socialMediaAccounts.trim() : null,
-      address: address ? address.trim() : null,
-      notes: notes ? notes.trim() : null,
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date()
     };
-    
-    // إضافة العميل إلى المصفوفة
     clients.push(newClient);
-    
     res.status(201).json(newClient);
   } catch (error) {
-    console.error('Create client error:', error);
     res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
