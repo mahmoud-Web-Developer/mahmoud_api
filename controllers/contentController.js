@@ -24,7 +24,6 @@ exports.getAllServices = (req, res) => {
     const paginatedServices = filteredServices.slice(startIndex, endIndex);
     
     res.json({
-      success: true,
       data: paginatedServices,
       count: paginatedServices.length,
       total: filteredServices.length,
@@ -34,10 +33,7 @@ exports.getAllServices = (req, res) => {
     });
   } catch (error) {
     console.error('Get all services error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -248,7 +244,6 @@ exports.getAllPortfolio = (req, res) => {
     const paginatedPortfolio = filteredPortfolio.slice(startIndex, endIndex);
     
     res.json({
-      success: true,
       data: paginatedPortfolio,
       count: paginatedPortfolio.length,
       total: filteredPortfolio.length,
@@ -258,10 +253,7 @@ exports.getAllPortfolio = (req, res) => {
     });
   } catch (error) {
     console.error('Get all portfolio error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
@@ -462,7 +454,6 @@ exports.getAllNews = (req, res) => {
     const paginatedNews = filteredNews.slice(startIndex, endIndex);
     
     res.json({
-      success: true,
       data: paginatedNews,
       count: paginatedNews.length,
       total: filteredNews.length,
@@ -472,10 +463,7 @@ exports.getAllNews = (req, res) => {
     });
   } catch (error) {
     console.error('Get all news error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في الخادم'
-    });
+    res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 

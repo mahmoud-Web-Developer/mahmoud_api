@@ -35,32 +35,26 @@ exports.getAllUsers = (req, res) => {
     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
     
     res.json({
-      success: true,
-      data: {
-        users: paginatedUsers.map(user => ({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          role: user.role,
-          isActive: user.isActive,
-          createdAt: user.createdAt,
-          lastLogin: user.lastLogin
-        })),
-        pagination: {
-          currentPage: parseInt(page),
-          totalPages: Math.ceil(filteredUsers.length / limit),
-          totalUsers: filteredUsers.length,
-          hasNext: endIndex < filteredUsers.length,
-          hasPrev: page > 1
-        }
+      users: paginatedUsers.map(user => ({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin
+      })),
+      pagination: {
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(filteredUsers.length / limit),
+        totalUsers: filteredUsers.length,
+        hasNext: endIndex < filteredUsers.length,
+        hasPrev: page > 1
       }
     });
   } catch (error) {
     console.error('Get all users error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب المستخدمين'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب المستخدمين' });
   }
 };
 

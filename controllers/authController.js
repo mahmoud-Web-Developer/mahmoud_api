@@ -36,68 +36,155 @@ const validateUserData = (username, password) => {
 // دالة تسجيل مستخدم جديد
 exports.signup = (req, res) => {
   try {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    if (!name || !email || !password) {
-      return res.status(400).json({ error: 'الاسم والبريد الإلكتروني وكلمة المرور مطلوبة' });
+    // دعم كل من الحروف الكبيرة والصغيرة
+    const username = req.body.username || req.body.Username;
+    const password = req.body.password || req.body.Password;
+    const email = req.body.email || req.body.Email;
+    
+    // التحقق من وجود البيانات المطلوبة
+    if (!username || !password) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'اسم المستخدم وكلمة المرور مطلوبان',
+        errors: ['username', 'password']
+      });
     }
-    // تحقق من صحة البريد وكلمة المرور (يمكنك إضافة تحقق إضافي)
-    // تحقق من عدم تكرار البريد
-    const existingUser = findUser(email.trim());
+    
+    // التحقق من صحة البيانات
+    const validationErrors = validateUserData(username, password);
+    if (validationErrors.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'بيانات غير صحيحة',
+        errors: validationErrors
+      });
+    }
+    
+    // التحقق من عدم تكرار اسم المستخدم
+    const existingUser = findUser(username.trim());
     if (existingUser) {
-      return res.status(409).json({ error: 'البريد الإلكتروني مستخدم بالفعل' });
+      return res.status(409).json({ 
+        success: false,
+        message: 'اسم المستخدم موجود بالفعل',
+        errors: ['username']
+      });
     }
+    
+    // تشفير كلمة المرور وإضافة المستخدم
     const hashedPassword = bcrypt.hashSync(password, 12);
     const userData = {
-      name: name.trim(),
-      email: email.trim(),
+      username: username.trim(),
       password: hashedPassword,
+      email: email || null,
       role: 'user'
     };
+    
     const result = addUser(userData);
     if (!result.success) {
-      return res.status(500).json({ error: result.message });
+      return res.status(500).json({
+        success: false,
+        message: result.message
+      });
     }
+    
     const user = result.user;
-    res.status(201).json({
+    
+    res.status(201).json({ 
       id: user.id,
-      name: user.name,
+      username: user.username,
       email: user.email,
       role: user.role
     });
   } catch (error) {
+    console.error('Signup error:', error);
     res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };
 
-// دالة تسجيل الدخول
+// دالة تسجيل الدخول وإرجاع توكن JWT
 exports.login = (req, res) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
-    if (!email || !password) {
-      return res.status(400).json({ error: 'البريد الإلكتروني وكلمة المرور مطلوبة' });
+    // دعم كل من الحروف الكبيرة والصغيرة
+    const username = req.body.username || req.body.Username;
+    const password = req.body.password || req.body.Password;
+    
+    // التحقق من وجود البيانات المطلوبة
+    if (!username || !password) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'اسم المستخدم وكلمة المرور مطلوبان',
+        errors: ['username', 'password']
+      });
     }
-    const user = findUser(email.trim());
+    
+    // البحث عن المستخدم
+    const user = findUser(username.trim());
     if (!user) {
-      return res.status(401).json({ error: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' });
+      return res.status(401).json({ 
+        success: false,
+        message: 'اسم المستخدم أو كلمة المرور غير صحيحة',
+        errors: ['credentials']
+      });
     }
+    
+    // التحقق من أن الحساب نشط
+    if (!user.isActive) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'الحساب معطل، يرجى التواصل مع الإدارة',
+        errors: ['account']
+      });
+    }
+    
+    // مقارنة كلمة المرور المدخلة مع المشفرة
     const isMatch = bcrypt.compareSync(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' });
+      return res.status(401).json({ 
+        success: false,
+        message: 'اسم المستخدم أو كلمة المرور غير صحيحة',
+        errors: ['credentials']
+      });
     }
-    const token = jwt.sign({ id: user.id, name: user.name, email: user.email, role: user.role }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1h' });
-    res.json({
-      token,
-      user: {
-        id: user.id,
-        name: user.name,
+    
+    // تحديث آخر تسجيل دخول
+    updateLastLogin(user.id);
+    
+    // إنشاء توكن JWT صالح لمدة ساعة
+    const token = jwt.sign(
+      { 
+        id: user.id, 
+        username: user.username,
         email: user.email,
         role: user.role
+      }, 
+      process.env.JWT_SECRET || 'your-secret-key', 
+      { expiresIn: '1h' }
+    );
+    
+    // إنشاء refresh token صالح لمدة 7 أيام
+    const refreshToken = jwt.sign(
+      { 
+        id: user.id, 
+        username: user.username,
+        type: 'refresh'
+      }, 
+      process.env.JWT_SECRET || 'your-secret-key', 
+      { expiresIn: '7d' }
+    );
+    
+    res.json({ 
+      token,
+      refreshToken,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        lastLogin: user.lastLogin
       }
     });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: 'حدث خطأ في الخادم' });
   }
 };

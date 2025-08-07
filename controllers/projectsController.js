@@ -36,7 +36,6 @@ exports.getAllProjects = (req, res) => {
     const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
     
     res.json({
-      success: true,
       data: paginatedProjects,
       count: paginatedProjects.length,
       total: filteredProjects.length,
@@ -46,10 +45,7 @@ exports.getAllProjects = (req, res) => {
     });
   } catch (error) {
     console.error('Get all projects error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب المشاريع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب المشاريع' });
   }
 };
 
@@ -60,22 +56,13 @@ exports.getProjectById = (req, res) => {
     const project = projects.find(p => p.id === parseInt(id));
     
     if (!project) {
-      return res.status(404).json({
-        success: false,
-        message: 'المشروع غير موجود'
-      });
+      return res.status(404).json({ error: 'المشروع غير موجود' });
     }
     
-    res.json({
-      success: true,
-      data: project
-    });
+    res.json(project);
   } catch (error) {
     console.error('Get project by ID error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب المشروع' });
   }
 };
 
@@ -96,19 +83,13 @@ exports.createProject = (req, res) => {
     
     // التحقق من البيانات المطلوبة
     if (!title || !description || !clientId) {
-      return res.status(400).json({
-        success: false,
-        message: 'العنوان والوصف ومعرف العميل مطلوبة'
-      });
+      return res.status(400).json({ error: 'العنوان والوصف ومعرف العميل مطلوبة' });
     }
     
     // التحقق من وجود العميل
     const client = clients.find(c => c.id === parseInt(clientId));
     if (!client) {
-      return res.status(400).json({
-        success: false,
-        message: 'العميل غير موجود'
-      });
+      return res.status(400).json({ error: 'العميل غير موجود' });
     }
     
     // إنشاء مشروع جديد
@@ -140,10 +121,7 @@ exports.createProject = (req, res) => {
     });
   } catch (error) {
     console.error('Create project error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في إنشاء المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في إنشاء المشروع' });
   }
 };
 
@@ -154,10 +132,7 @@ exports.updateProject = (req, res) => {
     const projectIndex = projects.findIndex(p => p.id === parseInt(id));
     
     if (projectIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        message: 'المشروع غير موجود'
-      });
+      return res.status(404).json({ error: 'المشروع غير موجود' });
     }
     
     const updatedProject = {
@@ -175,10 +150,7 @@ exports.updateProject = (req, res) => {
     });
   } catch (error) {
     console.error('Update project error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في تحديث المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في تحديث المشروع' });
   }
 };
 
@@ -189,10 +161,7 @@ exports.deleteProject = (req, res) => {
     const projectIndex = projects.findIndex(p => p.id === parseInt(id));
     
     if (projectIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        message: 'المشروع غير موجود'
-      });
+      return res.status(404).json({ error: 'المشروع غير موجود' });
     }
     
     const deletedProject = projects.splice(projectIndex, 1)[0];
@@ -204,10 +173,7 @@ exports.deleteProject = (req, res) => {
     });
   } catch (error) {
     console.error('Delete project error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في حذف المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في حذف المشروع' });
   }
 };
 
@@ -220,10 +186,7 @@ exports.updateProjectStatus = (req, res) => {
     const project = projects.find(p => p.id === parseInt(id));
     
     if (!project) {
-      return res.status(404).json({
-        success: false,
-        message: 'المشروع غير موجود'
-      });
+      return res.status(404).json({ error: 'المشروع غير موجود' });
     }
     
     project.status = status || project.status;
@@ -242,10 +205,7 @@ exports.updateProjectStatus = (req, res) => {
     });
   } catch (error) {
     console.error('Update project status error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في تحديث حالة المشروع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في تحديث حالة المشروع' });
   }
 };
 
@@ -286,9 +246,6 @@ exports.getProjectStats = (req, res) => {
     });
   } catch (error) {
     console.error('Get project stats error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'حدث خطأ في جلب إحصائيات المشاريع'
-    });
+    res.status(500).json({ error: 'حدث خطأ في جلب إحصائيات المشاريع' });
   }
 }; 

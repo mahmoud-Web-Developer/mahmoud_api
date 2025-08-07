@@ -1,10 +1,15 @@
 // مصفوفات فارغة تماماً - لا توجد بيانات وهمية
+const services = [];
+const portfolio = [];
+const news = [];
 const contactRequests = [];
 const meetings = [];
 const briefs = [];
-const requests = [];
-const clients = [];
 const users = [];
+const clients = [];
+const projects = [];
+const requests = [];
+const notifications = [];
 
 const dashboard = {
   workStatus: 'No Data',
@@ -13,11 +18,16 @@ const dashboard = {
 };
 
 module.exports = {
+  services,
+  portfolio,
+  news,
   contactRequests,
   meetings,
   briefs,
-  requests,
-  clients,
   users,
+  clients,
+  projects,
+  requests,
+  notifications,
   dashboard
 };
