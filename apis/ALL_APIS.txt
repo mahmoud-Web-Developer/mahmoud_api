@@ -1,3 +1,7 @@
+# ملاحظة هامة:
+# جميع الردود من الـ API الآن ترجع فقط البيانات (object أو array) بدون أي حقول إضافية مثل message أو success.
+# في حالة الخطأ، يكون الرد فقط بهذا الشكل: { error: "رسالة الخطأ" }
+
 POST https://mahmoudapi-production.up.railway.app/auth/signup - تسجيل مستخدم جديد
 POST https://mahmoudapi-production.up.railway.app/auth/login - تسجيل الدخول والحصول على JWT
 GET https://mahmoudapi-production.up.railway.app/services - جلب جميع الخدمات
